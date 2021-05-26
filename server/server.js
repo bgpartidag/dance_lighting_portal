@@ -40,6 +40,7 @@ const danceSchema = {
 
 const Dance = mongoose.model('Dance', danceSchema);
 
+// Requirements for a show
 const showSchema = {
     team_username: {
         type: String,
@@ -86,6 +87,7 @@ const showSchema = {
 
 const Show = mongoose.model('Show', showSchema);
 
+// Requirements for a user
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -119,6 +121,123 @@ passport.use(User.createStrategy())
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// Server location at 3001
 app.listen(3001, function () {
     console.log("server started at 3001");
+});
+
+// Register a User
+app.get('/node_register', (req, res) => {
+    if (req.query.error) {
+        // ERROR
+        // res.redirect("/register.html?error=" + req.query.error);
+    } else {
+        // ERROR
+        // res.redirect("/register.html");
+    }
+});
+
+// Login a User
+app.get('/node_login', (req, res) => {
+    if (req.query.error) {
+        // ERROR
+        // res.redirect("/login.html?error=" + req.query.error);
+    } else {
+        // ERROR
+        // res.redirect("/login.html");
+    }
+});
+
+// Logout a User
+app.get('/node_logout', (req, res) => {
+    req.logout();
+    // ERROR
+    // res.redirect('/');
+});
+
+app.post('/node_register', (req, res) =>{
+    //console.log('profile image is '+ img);
+    const newUser = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        team_type: req.body.team_type,
+    }
+    //console.log(req.body.password);
+    User.register(
+        newUser,
+        req.body.password,
+        function (err, user){
+            if (err) {
+                // ERROR
+                //console.log(err);
+                // res.redirect('/register?error='+err);
+            }else {
+                console.log('success!!')
+                // write into cookies, authenticate the requests
+                const authenticate = passport.authenticate('local');
+                authenticate(req, res, function () {
+                    // SUCCESS
+                    // res.sendFile(__dirname+"/src/account.html");
+                })
+            }
+        }
+    );
+});
+
+// Login
+app.post('/node_login', (req, res) => {
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password,
+
+    });
+    req.login(
+        user,
+        function (err) {
+            if (err){
+                // ERROR
+                //console.log(err);
+                // res.redirect('login?error=Invalid username or password');
+            }else{
+                const authenticate = passport.authenticate(
+                    'local',
+                    {
+                        // SUCCESS
+                        // successRedirect: res.sendFile(__dirname+"/src/account.html"),
+                        failureRedirect: "/login?error=Username and password don't match"
+                    }
+                );
+                authenticate(req,res);
+            }
+        }
+    )
+});
+
+// Current User
+app.get('/node_get_current_user', function (req,res){
+    if (req.isAuthenticated()){
+        //console.log(req.user);
+        res.send({
+            message: "success",
+            data: req.user
+        });
+    }else{
+        res.send({
+            message: "no login",
+            data: {}
+        });
+    }
+});
+
+// Get Current Account
+app.get("/node_account", (req, res) => {
+    //console.log(req.isAuthenticated());
+    if (req.isAuthenticated()){
+        // SUCCESS
+        // res.sendFile(__dirname+"/src/account.html");
+    }else{
+        // ERROR
+        // res.redirect('/login.html?error=You need to login first');
+    }
 });
