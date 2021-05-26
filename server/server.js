@@ -122,3 +122,35 @@ passport.deserializeUser(User.deserializeUser());
 app.listen(3001, function () {
     console.log("server started at 3001");
 });
+
+app.get('/node_get_show_by_id', function (req, res) {
+    Show.findOne({"_id": req.query.show_id}, function (err, data) {
+        if (err || data.length === 0) {
+            res.send({
+                "message": "internal database error",
+                "data": {}
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+
+app.get('/node_get_dance_by_id', function (req, res) {
+    Dance.findOne({"_id": req.query.dance_id}, function (err, data) {
+        if (err || data.length === 0) {
+            res.send({
+                "message": "internal database error",
+                "data": {}
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
