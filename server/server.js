@@ -26,7 +26,6 @@ mongoose.connect('mongodb://localhost:27017/danceLightDB',
     {useNewUrlParser: true}, function () {
         console.log("db connection successful");
     });
-KeyboardEvent
 
 const danceSchema = {
     choreographer: String,
