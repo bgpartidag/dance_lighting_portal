@@ -126,38 +126,6 @@ app.listen(3001, function () {
     console.log("server started at 3001");
 });
 
-<<<<<<< HEAD
-app.get('/node_get_show_by_id', function (req, res) {
-    Show.findOne({"_id": req.query.show_id}, function (err, data) {
-        if (err || data.length === 0) {
-            res.send({
-                "message": "internal database error",
-                "data": {}
-            });
-        } else {
-            res.send({
-                "message": "success",
-                "data": data
-            })
-        }
-    });
-});
-
-app.get('/node_get_dance_by_id', function (req, res) {
-    Dance.findOne({"_id": req.query.dance_id}, function (err, data) {
-        if (err || data.length === 0) {
-            res.send({
-                "message": "internal database error",
-                "data": {}
-            });
-        } else {
-            res.send({
-                "message": "success",
-                "data": data
-            })
-        }
-    });
-=======
 // Register a User
 app.get('/node_register', (req, res) => {
     if (req.query.error) {
@@ -272,5 +240,35 @@ app.get("/node_account", (req, res) => {
         // ERROR
         // res.redirect('/login.html?error=You need to login first');
     }
->>>>>>> d58adfc2b92a29eeb7bd8b1a92450a634445cbbb
 });
+
+app.get('/node_get_show_by_id', function (req, res) {
+    Show.findOne({"_id": req.query.show_id}, function (err, data) {
+        if (err || data.length === 0) {
+            res.send({
+                "message": "internal database error",
+                "data": {}
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
+});
+
+app.get('/node_get_dance_by_id', function (req, res) {
+    Dance.findOne({"_id": req.query.dance_id}, function (err, data) {
+        if (err || data.length === 0) {
+            res.send({
+                "message": "internal database error",
+                "data": {}
+            });
+        } else {
+            res.send({
+                "message": "success",
+                "data": data
+            })
+        }
+    });
