@@ -127,32 +127,33 @@ app.listen(3001, function () {
 });
 
 // Register a User
-app.get('/node_register', (req, res) => {
-    if (req.query.error) {
-        // ERROR
-        // res.redirect("/register.html?error=" + req.query.error);
-    } else {
-        // ERROR
-        // res.redirect("/register.html");
-    }
-});
+// app.get('/node_register', (req, res) => {
+//     if (req.query.error) {
+//         // ERROR
+//         // res.redirect("/register.html?error=" + req.query.error);
+//     } else {
+//         // ERROR
+//         // res.redirect("/register.html");
+//     }
+// });
 
 // Login a User
-app.get('/node_login', (req, res) => {
-    if (req.query.error) {
-        // ERROR
-        // res.redirect("/login.html?error=" + req.query.error);
-    } else {
-        // ERROR
-        // res.redirect("/login.html");
-    }
-});
+// app.get('/node_login', (req, res) => {
+//     if (req.query.error) {
+//         // ERROR
+//         // res.redirect("/login.html?error=" + req.query.error);
+//     } else {
+//         // ERROR
+//         // res.redirect("/login.html");
+//     }
+// });
 
 // Logout a User
 app.get('/node_logout', (req, res) => {
     req.logout();
-    // ERROR
-    // res.redirect('/');
+    res.send({
+        message: "success"
+    })
 });
 
 app.post('/node_register', (req, res) =>{
@@ -169,16 +170,19 @@ app.post('/node_register', (req, res) =>{
         req.body.password,
         function (err, user){
             if (err) {
-                // ERROR
-                //console.log(err);
-                // res.redirect('/register?error='+err);
+                res.send({
+                    message: "error",
+                    data: err
+                });
             }else {
                 console.log('success!!')
                 // write into cookies, authenticate the requests
                 const authenticate = passport.authenticate('local');
                 authenticate(req, res, function () {
-                    // SUCCESS
-                    // res.sendFile(__dirname+"/src/account.html");
+                    res.send({
+                        message: "success",
+                        user: req.user
+                    });
                 })
             }
         }
@@ -196,18 +200,27 @@ app.post('/node_login', (req, res) => {
         user,
         function (err) {
             if (err){
-                // ERROR
-                //console.log(err);
-                // res.redirect('login?error=Invalid username or password');
+                res.send({
+                    message: "error",
+                    data: err
+                });
             }else{
                 const authenticate = passport.authenticate(
                     'local',
-                    {
-                        // SUCCESS
-                        // successRedirect: res.sendFile(__dirname+"/src/account.html"),
-                        failureRedirect: "/login?error=Username and password don't match"
+                    {},
+                (error, userExist, info) => {
+                    if (userExist) {
+                        res.send({
+                            message: "success",
+                            user: req.user
+                        });
+                    } else {
+                        res.send({
+                            message: "error",
+                            data: info
+                        });
                     }
-                );
+                });
                 authenticate(req,res);
             }
         }
@@ -227,18 +240,6 @@ app.get('/node_get_current_user', function (req,res){
             message: "no login",
             data: {}
         });
-    }
-});
-
-// Get Current Account
-app.get("/node_account", (req, res) => {
-    //console.log(req.isAuthenticated());
-    if (req.isAuthenticated()){
-        // SUCCESS
-        // res.sendFile(__dirname+"/src/account.html");
-    }else{
-        // ERROR
-        // res.redirect('/login.html?error=You need to login first');
     }
 });
 
@@ -271,4 +272,5 @@ app.get('/node_get_dance_by_id', function (req, res) {
                 "data": data
             })
         }
-    });
+    })
+});
