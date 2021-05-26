@@ -1,0 +1,38 @@
+:root {
+	/* CSS HEX */
+	--imperial-red: #e63946ff;
+	--honeydew: #f1faeeff;
+	--powder-blue: #a8dadcff;
+	--celadon-blue: #457b9dff;
+	--prussian-blue: #1d3557ff;
+}
+
+.container-fluid {
+	padding: 10px;
+	background-color: rgb(204, 204, 204);
+	top: 0;
+	position: absolute;
+}
+
+.btn {
+	margin: 20px;
+	background-color: black;
+	border-color: black;
+}
+
+nav {
+	background-color: var(--prussian-blue);
+	color: var(--honeydew);
+}
+
+footer {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	background-color: var(--prussian-blue);
+	color: var(--honeydew);
+}
+
+h1 {
+	text-align: center;
+}
