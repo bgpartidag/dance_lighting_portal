@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 
 ReactDOM.render(
-  <div></div>,
+  <div>hi</div>,
   document.getElementById('root')
 );
+
