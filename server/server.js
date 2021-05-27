@@ -27,15 +27,39 @@ mongoose.connect('mongodb://localhost:27017/danceLightDB',
         console.log("db connection successful");
     });
 
+const cueSchema = {
+    parent_dance: {
+        type: String,
+        require: true
+    },
+    start_time: Number,
+    end_time: Number,
+    lights: [{
+        light_name: String,
+        color: String,
+        brightness: String
+    }]
+}
+
+const Cue = mongoose.model('Cue', cueSchema);
+
 const danceSchema = {
+    parent_show: {
+        type: String,
+        require: true
+    },
     choreographer: String,
     length: String,
     comments: String,
     cues: [{
-        start_time: Number,
-        end_time: Number,
-        sort_order: Number,
-        lights: [{ light_name: String, color: String, brightness: String }]
+        cue_id: {
+            type: String,
+            require: true
+        },
+        sort_order: {
+            type: Number,
+            require: true
+        }
     }]
 }
 
@@ -45,7 +69,7 @@ const Dance = mongoose.model('Dance', danceSchema);
 const showSchema = {
     team_username: {
         type: String,
-        required: true
+        require: true
     },
     show_name: {
         type: String,
@@ -81,9 +105,16 @@ const showSchema = {
             message: "Date format must be mm-dd-yyyy"
         }
     }],
-    dances: [
-        { dance_id: String, sort_order: Number }
-    ]
+    dances: [{
+        dance_id: {
+            type: String,
+            require: true,
+        },
+        sort_order: {
+            type: String,
+            require: true,
+        }
+    }]
 }
 
 const Show = mongoose.model('Show', showSchema);
@@ -128,8 +159,10 @@ app.listen(3001, function () {
 });
 
 // Register New User
+// NEED FIELDS AND PARAMETERS
 app.post('/node_register', (req, res) => {
 
+    // NEEDED : the name for username/email/team type fields in register form
     const newUser = {
         username: req.body.username,
         email: req.body.email,
@@ -139,12 +172,13 @@ app.post('/node_register', (req, res) => {
     User.register(
         newUser,
 
+        // NEEDED : the name for password field form register form
         req.body.password,
 
         function (err, user) {
             if (err) {
                 res.send({
-                    message: "error",
+                    message: "Error Registering User to Database",
                     data: err
                 });
             } else {
@@ -162,7 +196,10 @@ app.post('/node_register', (req, res) => {
 });
 
 // Login
+// NEED FIELDS AND PARAMETERS
 app.post('/node_login', (req, res) => {
+
+    // NEEDED : the names for username and password fields in login forms
     const user = new User({
         username: req.body.username,
         password: req.body.password,
@@ -173,7 +210,7 @@ app.post('/node_login', (req, res) => {
     req.login(user, function (err) {
         if (err) {
             res.send({
-                message: "error",
+                message: "Error Logging in User",
                 data: err
             });
         } else {
@@ -188,7 +225,7 @@ app.post('/node_login', (req, res) => {
                         });
                     } else {
                         res.send({
-                            message: "error",
+                            message: "Error Authenticating User",
                             data: info
                         });
                     }
@@ -216,22 +253,49 @@ app.get('/node_get_current_user', function (req, res) {
         });
     } else {
         res.send({
-            message: "no login",
+            message: "No Login",
             data: {}
         });
     }
 });
 
+// Deleting user
+// NEED FIELDS AND PARAMETERS
+app.post('/delete_user_by_id', (req, res) => {
+
+    // NEED : the ID of the User
+    const user_id = req.body.user_id
+
+    User.deleteOne(
+        { '_id': user_id },
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "Database Error Deleting User"
+                });
+            } else {
+                res.send({
+                    "message": "success"
+                });
+            }
+        }
+    );
+});
+
 // Get Show by Id
+// NEED FIELDS AND PARAMETERS
 app.get('/node_get_show_by_id', function (req, res) {
+
+    // NEEDED : the id for the dance passed with parameter named "show_id"
+    const show_id = req.query.show_id;
+
     Show.findOne(
-
-        { "_id": req.query.show_id }
-
-        , function (err, data) {
+        { "_id": show_id },
+        function (err, data) {
             if (err || data.length === 0) {
                 res.send({
-                    "message": "internal database error",
+                    "message": "Internal Database Error when Finding Show",
                     "data": {}
                 });
             } else {
@@ -240,7 +304,8 @@ app.get('/node_get_show_by_id', function (req, res) {
                     "data": data
                 })
             }
-        });
+        }
+    );
 });
 
 // Get All Shows in database
@@ -248,7 +313,7 @@ app.get("/node_get_all_shows", function (req, res) {
     Show.find(function (err, data) {
         if (err) {
             res.send({
-                "message": "internal database error",
+                "message": "Internal Database Error Getting All Shows",
                 "data": []
             });
         } else {
@@ -261,12 +326,15 @@ app.get("/node_get_all_shows", function (req, res) {
 });
 
 // Get Dance by Id
+// NEED FIELDS AND PARAMETERS
 app.get('/node_get_dance_by_id', function (req, res) {
+
+    // NEEDED : the id for the dance passed with parameter named "dance_id"
+    const dance_id = req.query.dance_id;
+
     Dance.findOne(
-
-        { "_id": req.query.dance_id }
-
-        , function (err, data) {
+        { "_id": dance_id },
+        function (err, data) {
             if (err || data.length === 0) {
                 res.send({
                     "message": "internal database error",
@@ -278,17 +346,65 @@ app.get('/node_get_dance_by_id', function (req, res) {
                     "data": data
                 })
             }
-        })
+        }
+    )
 });
 
 // Get All Dances in a show
-app.get('/node_get_dances_by_shows', function (req, res) {
-    // TODO: Maybe find??
+// NEED FIELDS AND PARAMETERS
+app.get('/node_get_dances_by_show', function (req, res) {
+    
+    // NEEDED: the Show ID
+    const show_id = req.body.show_id;
+
+    Dance.find(
+        { parent_show: show_id },
+        function (err, data) {
+            if (err || data.length === 0) {
+                res.send({
+                    "message": "Internal Database Error Getting All Dances under a Show",
+                    "data": {}
+                });
+            } else {
+                res.send({
+                    "message": "success",
+                    "data": data
+                })
+            }
+        }
+    )
+});
+
+// Get All Cues in a dance
+// NEED FIELDS AND PARAMETERS
+app.get('/node_get_cues_by_dance', function (req, res) {
+
+    // NEEDED: the Dance ID
+    const dance_id = req.body.dance_id;
+
+    Cue.find(
+        { parent_dance: dance_id },
+        function (err, data) {
+            if (err || data.length === 0) {
+                res.send({
+                    "message": "Internal Database Error Getting All Cues under a Dance",
+                    "data": {}
+                });
+            } else {
+                res.send({
+                    "message": "success",
+                    "data": data
+                })
+            }
+        }
+    )
 });
 
 //Add new or Update Show to the database
+// NEED FIELDS AND PARAMETERS
 app.post("/node_add_show", (req, res) => {
 
+    // NEEDED : a Show Dictionary Object with all fields ready to be saved
     const show = req.body.show;
 
     if (show._id) {
@@ -328,13 +444,14 @@ app.post("/node_add_show", (req, res) => {
 });
 
 //Add new or Update Dance to the database
-//If New push it's Id onto Show Dance List
+// NEED FIELDS AND PARAMETERS
 app.post("/node_add_dance", (req, res) => {
-    // TODO: Figure out how to only add it to specified show
 
+    // NEEDED : a Dance Dictionary Object with all fields ready to be saved and the Id of the Show
+    // NEEDED : the Id of the Show it's under and the length of it's dance list
     const dance = req.body.dance;
     const show_id = req.body.show_id;
-    const order = req.body.order;
+    const order = req.body.dance_list_length;
 
     if (dance._id) {
         // Update existed dance
@@ -354,23 +471,23 @@ app.post("/node_add_dance", (req, res) => {
                 }
             });
     } else {
-        // create a new movie
+        // create a new dance
         const newDance = new Dance(dance);
         newDance.save(
             (err, new_dance) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "dance": dance
+                        "show": show
                     });
                 } else {
-                    // Add New Dance Id to show's dance list
+                    // If created need to add ID to Show's list
                     const dance_for_list = {
                         dance_id: new_dance._id,
                         sort_order: order + 1
-                    };
-
-                    Show.updateOne({ _id: show_id },
+                    }
+                    Show.updateOne(
+                        { _id: show_id },
                         {
                             $push: { dances: dance_for_list }
                         },
@@ -378,7 +495,7 @@ app.post("/node_add_dance", (req, res) => {
                         (err, info) => {
                             if (err) {
                                 res.send({
-                                    message: "database error"
+                                    message: "Database Error Updating Show with new_dance._id"
                                 });
                             } else {
                                 res.send({
@@ -388,33 +505,182 @@ app.post("/node_add_dance", (req, res) => {
                         }
                     );
                 }
+            });
+    }
+});
+
+// Add new or Update Cue
+// NEED FIELDS AND PARAMETERS
+app.post('/node_add_cue', (req, res) => {
+
+    // NEEDED : a Cue Dictionary Object with all fields ready to be saved
+    // NEEDED : the Id of the Dhow it's under and the length of it's cue list
+    const cue = req.body.cue;
+    const dance_id = req.body.dance_id;
+    const order = req.body.cue_list_length;
+
+    if (cue._id) {
+        // Update existed cue
+        Cue.updateOne(
+            { _id: cue._id },
+            { $set: cue },
+            { runValidators: true },
+            (err, info) => {
+                if (err) {
+                    res.send({
+                        "message": err,
+                        "cue": cue,
+                    });
+                } else {
+                    res.send({
+                        "message": "success"
+                    })
+                }
+            }
+        );
+    } else {
+        // create a new cue
+        const newCue = new Cue(cue);
+        newCue.save(
+            (err, new_cue) => {
+                if (err) {
+                    res.send({
+                        "message": err,
+                        "show": show
+                    });
+                } else {
+                    // If created need to add ID to Show's list
+                    const cue_for_list = {
+                        cue_id: new_cue._id,
+                        sort_order: order + 1
+                    }
+                    Dance.updateOne(
+                        { _id: dance_id },
+                        {
+                            $push: { cues: cue_for_list }
+                        },
+                        {},
+                        (err, info) => {
+                            if (err) {
+                                res.send({
+                                    message: "Database Error Updating Dance with new_cue._id"
+                                });
+                            } else {
+                                res.send({
+                                    message: "success"
+                                });
+                            }
+                        }
+                    )
+                }
             }
         );
     }
 });
 
+// Delete cue by id
+// NEED FIELDS AND PARAMETERS
+app.post('/delete_cue_by_id', (req, res) => {
 
-// Add new Cue
-app.post('/node_add_cue', (req, res) => {
-    //Add the cue to the dance
-    const dance_id = req.body.dance_id;
-    const cue = req.body.cue;
+    // NEEDED: the Cue id
+    const cue_id = req.body._id
 
-    Dance.updateOne(
-        { _id: dance_id},
-        {
-            $push: { lights: cue }
-        },
+    Cue.deleteOne(
+        { '_id': cue_id },
         {},
-        (err, info) => {
+        (err) => {
             if (err) {
                 res.send({
-                    message: "database error"
+                    "message": "Database Error Deleting Cue"
                 });
             } else {
                 res.send({
-                    message: "success"
+                    "message": "success"
                 });
+            }
+        }
+    );
+});
+
+// Delete Dance by id and All its Cues
+// NEED FIELDS AND PARAMETERS
+app.post('/delete_dance_by_id', (req, res) => {
+
+    // NEEDED: the Dance id
+    const dance_id = req.body._id
+
+    Cue.deleteMany(
+        { '_id': { $in: dance_id } },
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "Database Error Deleting Cues by Parent Dance id"
+                });
+            } else {
+                Dance.deleteOne(
+                    { '_id': dance_id },
+                    {},
+                    (err) => {
+                        if (err) {
+                            res.send({
+                                "message": "Database Error Deleting Dance by id"
+                            });
+                        } else {
+                            res.send({
+                                "message": "success"
+                            });
+                        }
+                    }
+                );
+            }
+        }
+    );
+});
+
+// NEED FIELDS AND PARAMETERS
+app.post('/delete_show_by_id', (req, res) => {
+
+    // NEEDED: the Show id and list of it's Dance ids
+    const show_id = req.body._id;
+    const dance_ids = req.body._ids;
+
+    Cue.deleteMany(
+        { '_id': { $in: dance_ids } },
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "Database Error Deleting Cues by Parent Dance ids"
+                });
+            } else {
+                Dance.deleteMany(
+                    { '_id': { $in: show_id } },
+                    {},
+                    (err) => {
+                        if (err) {
+                            res.send({
+                                "message": "Database Error Deleting Dance by Parent Show id"
+                            });
+                        } else {
+                            Show.deleteOne(
+                                { '_id': show_id },
+                                {},
+                                (err) => {
+                                    if (err) {
+                                        res.send({
+                                            "message": "Database Error Deleting Show by id"
+                                        });
+                                    } else {
+                                        res.send({
+                                            "message": "success"
+                                        });
+                                    }
+                                }
+                            );
+                        }
+                    }
+                );
             }
         }
     );
