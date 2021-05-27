@@ -205,8 +205,8 @@ function EditShow() {
 							<input
 								type="button"
 								className="btn btn-dark"
-								value="Create Show"
-								onclick="addShow()"
+								value="Save Show"
+								onclick="saveShow()"
 								style={{ width: "20%" }}
 							/>
 						</div>

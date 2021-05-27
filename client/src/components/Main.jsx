@@ -5,6 +5,7 @@ import $ from "jquery";
 import Header from "./Header";
 import Footer from "./Footer";
 import EditShow from "./Show/EditShow";
+import EditCue from "./Cue/EditCue";
 
 function Main() {
 	return (
@@ -18,7 +19,8 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<EditShow />
+				<EditCue />
+				{/* <EditShow /> */}
 			</div>
 			<Footer />
 		</Router>
