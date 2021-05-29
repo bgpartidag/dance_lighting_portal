@@ -6,7 +6,7 @@ function LightItem(props) {
 	return (
 		<div>
 			<div className="col-lg-4">
-				<p>{light.name}</p>
+				<p>{light.light_name}</p>
 			</div>
 			<div className="col-lg-4">
 				<p>Brightness: {light.brightness}</p>
