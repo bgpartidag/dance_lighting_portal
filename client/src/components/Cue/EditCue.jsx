@@ -4,13 +4,42 @@ import { Link } from "react-router-dom";
 import LightVisualizer from "./LightVsializer";
 
 function EditCue() {
+	const location = useLocation();
+    const cue = location.state.cue;
+    const [error, setError] = useState('');
+
+	const history = useHistory();
+    const saveCue=(event)=>{
+        event.preventDefault();
+        setError('');
+        const form = event.target.elements;
+        console.log(form);
+        // movie.title=form.title.value;
+        // movie.rating=form.rating.value;
+        // movie.poster_path=form.poster_path.value;
+        // movie.release_date=form.release_date.value;
+        // movie.overview=form.overview.value;
+        // if (movie.rating>10){
+        //     setError("Rating can not be greater than 10");
+        // }else{
+            $.post("/node_add_cue", {cue:cue, dance_id:null, order:null}).done((data)=>{
+                if(data.message === 'success'){
+                    //navigate
+                    history.push('/', {cue:cue})
+                }else{
+                    setError(data.message);
+                }
+            });
+        //}
+    }
+
 	return (
 		<section id="edit_que">
 			<div className="container">
 				<div className="row">
 					<h1>EditQue</h1>
 				</div>
-				<form id="edit_form">
+				<form id="edit_form" onSubmit={saveCue} method="POST">
 					<div className="row">
 						<div className="col-2">
 							<div>
