@@ -27,4 +27,5 @@ client/package-lock.json
 server/package.json
 server/package-lock.json
 
+.env
 client/yarn.lock
