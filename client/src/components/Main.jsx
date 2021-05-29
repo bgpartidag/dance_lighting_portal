@@ -5,6 +5,7 @@ import $ from "jquery";
 import Header from "./Header";
 import Footer from "./Footer";
 import EditShow from "./Show/EditShow";
+import EditDance from "./Dance/EditDance";
 import EditCue from "./Cue/EditCue";
 
 function Main() {
@@ -19,7 +20,8 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<EditCue />
+				<EditDance />
+				{/* <EditCue /> */}
 				{/* <EditShow /> */}
 			</div>
 			<Footer />
