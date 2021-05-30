@@ -42,7 +42,7 @@ function EditCue() {
 		<section id="edit_que">
 			<div className="container">
 				<div className="row">
-					<h1>EditQue</h1>
+					<h1>Edit Cue</h1>
 				</div>
 				<form id="edit_form" onSubmit={saveCue} method="POST">
 					<div className="row">
@@ -79,27 +79,7 @@ function EditCue() {
 							<LightVisualizer />
 						</div>
 						<div className="col-2">
-							<h5>Light Options:</h5>
-							<label for="brightness" className="form-label">
-								Brightness:
-								<input
-									id="brightness"
-									classname="custom-range"
-									type="range"
-									min="0"
-									max="100"
-								/>
-							</label>
-							<label for="color" className="form-label">
-								Color:
-								<input
-									type="text"
-									name="color"
-									value=""
-									id="color"
-									className="form-control"
-								/>
-							</label>
+							<h5>Cue Details:</h5>
 							<label for="light_detail" className="form-label">
 								Details:
 								<textarea
