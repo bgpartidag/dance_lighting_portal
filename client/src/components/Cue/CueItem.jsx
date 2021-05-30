@@ -15,6 +15,7 @@ function CueItem(props) {
 						pathname: "/edit_cue",
 						state: {
 							cue: cue,
+							dance_id: "A dance id i guess"
 						},
 					}}
 				>

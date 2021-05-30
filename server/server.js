@@ -32,8 +32,25 @@ const cueSchema = {
         type: String,
         require: true
     },
-    start_time: Number,
-    end_time: Number,
+    start_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
+    end_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
+    details: String,
     lights: [{
         light_name: String,
         color: String,
@@ -482,28 +499,29 @@ app.post("/node_add_dance", (req, res) => {
                     });
                 } else {
                     // If created need to add ID to Show's list
-                    const dance_for_list = {
-                        dance_id: new_dance._id,
-                        sort_order: order + 1
-                    }
-                    Show.updateOne(
-                        { _id: show_id },
-                        {
-                            $push: { dances: dance_for_list }
-                        },
-                        {},
-                        (err, info) => {
-                            if (err) {
-                                res.send({
-                                    message: "Database Error Updating Show with new_dance._id"
-                                });
-                            } else {
+                    console.log(dance_id._id)
+                    // const dance_for_list = {
+                    //     dance_id: new_dance._id,
+                    //     sort_order: order + 1
+                    // }
+                    // Show.updateOne(
+                    //     { _id: show_id },
+                    //     {
+                    //         $push: { dances: dance_for_list }
+                    //     },
+                    //     {},
+                    //     (err, info) => {
+                    //         if (err) {
+                    //             res.send({
+                    //                 message: "Database Error Updating Show with new_dance._id"
+                    //             });
+                    //         } else {
                                 res.send({
                                     message: "success"
                                 });
-                            }
-                        }
-                    );
+                    //         }
+                    //     }
+                    // );
                 }
             });
     }
@@ -550,28 +568,30 @@ app.post('/node_add_cue', (req, res) => {
                     });
                 } else {
                     // If created need to add ID to Show's list
-                    const cue_for_list = {
-                        cue_id: new_cue._id,
-                        sort_order: order + 1
-                    }
-                    Dance.updateOne(
-                        { _id: dance_id },
-                        {
-                            $push: { cues: cue_for_list }
-                        },
-                        {},
-                        (err, info) => {
-                            if (err) {
-                                res.send({
-                                    message: "Database Error Updating Dance with new_cue._id"
-                                });
-                            } else {
+                    console.log(newCue._id);
+                    
+                    // const cue_for_list = {
+                    //     cue_id: new_cue._id,
+                    //     sort_order: order + 1
+                    // }
+                    // Dance.updateOne(
+                    //     { _id: dance_id },
+                    //     {
+                    //         $push: { cues: cue_for_list }
+                    //     },
+                    //     {},
+                    //     (err, info) => {
+                    //         if (err) {
+                    //             res.send({
+                    //                 message: "Database Error Updating Dance with new_cue._id"
+                    //             });
+                    //         } else {
                                 res.send({
                                     message: "success"
                                 });
-                            }
-                        }
-                    )
+                    //         }
+                    //     }
+                    // )
                 }
             }
         );
