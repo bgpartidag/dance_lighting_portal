@@ -65,19 +65,9 @@ const danceSchema = {
         type: String,
         require: true
     },
-    dance_name: {type: String, require: true},
+    dance_name: { type: String, require: true },
     choreographer: String,
     comments: String,
-    cues: [{
-        cue_id: {
-            type: String,
-            require: true
-        },
-        sort_order: {
-            type: Number,
-            require: true
-        }
-    }]
 }
 
 const Dance = mongoose.model('Dance', danceSchema);
@@ -123,16 +113,6 @@ const showSchema = {
         }
     }],
     show_notes: String,
-    dances: [{
-        dance_id: {
-            type: String,
-            require: true,
-        },
-        sort_order: {
-            type: String,
-            require: true,
-        }
-    }]
 }
 
 const Show = mongoose.model('Show', showSchema);
@@ -370,8 +350,8 @@ app.get('/node_get_dance_by_id', function (req, res) {
 
 // Get All Dances in a show
 // NEED FIELDS AND PARAMETERS
-app.get('/node_get_dances_by_show', function (req, res) {
-    
+app.get('/node_get_all_dances_by_show', function (req, res) {
+
     // NEEDED: the Show ID
     const show_id = req.body.show_id;
 
@@ -395,7 +375,7 @@ app.get('/node_get_dances_by_show', function (req, res) {
 
 // Get All Cues in a dance
 // NEED FIELDS AND PARAMETERS
-app.get('/node_get_cues_by_dance', function (req, res) {
+app.get('/node_get_all_cues_by_dance', function (req, res) {
 
     // NEEDED: the Dance ID
     const dance_id = req.body.dance_id;
@@ -465,11 +445,8 @@ app.post("/node_add_show", (req, res) => {
 // NEED FIELDS AND PARAMETERS
 app.post("/node_add_dance", (req, res) => {
 
-    // NEEDED : a Dance Dictionary Object with all fields ready to be saved and the Id of the Show
-    // NEEDED : the Id of the Show it's under and the length of it's dance list
+    // NEEDED : a Dance Dictionary Object with all fields ready to be saved
     const dance = req.body.dance;
-    const show_id = req.body.show_id;
-    const order = req.body.dance_list_length;
 
     if (dance._id) {
         // Update existed dance
@@ -496,33 +473,15 @@ app.post("/node_add_dance", (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "show": show
+                        "dance": new_dance
                     });
                 } else {
-                    // If created need to add ID to Show's list
-                    console.log(dance_id._id)
-                    // const dance_for_list = {
-                    //     dance_id: new_dance._id,
-                    //     sort_order: order + 1
-                    // }
-                    // Show.updateOne(
-                    //     { _id: show_id },
-                    //     {
-                    //         $push: { dances: dance_for_list }
-                    //     },
-                    //     {},
-                    //     (err, info) => {
-                    //         if (err) {
-                    //             res.send({
-                    //                 message: "Database Error Updating Show with new_dance._id"
-                    //             });
-                    //         } else {
-                                res.send({
-                                    message: "success"
-                                });
-                    //         }
-                    //     }
-                    // );
+                    // return new dance
+                    console.log(new_dance)
+                    res.send({
+                        "message": "success",
+                        "dance": new_dance
+                    });
                 }
             });
     }
@@ -533,10 +492,7 @@ app.post("/node_add_dance", (req, res) => {
 app.post('/node_add_cue', (req, res) => {
 
     // NEEDED : a Cue Dictionary Object with all fields ready to be saved
-    // NEEDED : the Id of the Dhow it's under and the length of it's cue list
     const cue = req.body.cue;
-    const dance_id = req.body.dance_id;
-    const order = req.body.cue_list_length;
 
     if (cue._id) {
         // Update existed cue
@@ -565,34 +521,16 @@ app.post('/node_add_cue', (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "show": show
+                        "cue": new_cue
                     });
                 } else {
                     // If created need to add ID to Show's list
-                    console.log(newCue._id);
-                    
-                    // const cue_for_list = {
-                    //     cue_id: new_cue._id,
-                    //     sort_order: order + 1
-                    // }
-                    // Dance.updateOne(
-                    //     { _id: dance_id },
-                    //     {
-                    //         $push: { cues: cue_for_list }
-                    //     },
-                    //     {},
-                    //     (err, info) => {
-                    //         if (err) {
-                    //             res.send({
-                    //                 message: "Database Error Updating Dance with new_cue._id"
-                    //             });
-                    //         } else {
-                                res.send({
-                                    message: "success"
-                                });
-                    //         }
-                    //     }
-                    // )
+                    console.log(new_cue);
+                    res.send({
+                        "message": "success",
+                        "cue": new_cue
+                    });
+
                 }
             }
         );
@@ -601,10 +539,10 @@ app.post('/node_add_cue', (req, res) => {
 
 // Delete cue by id
 // NEED FIELDS AND PARAMETERS
-app.post('/delete_cue_by_id', (req, res) => {
+app.post('/node_delete_cue_by_id', (req, res) => {
 
     // NEEDED: the Cue id
-    const cue_id = req.body._id
+    const cue_id = req.body.cue_id
 
     Cue.deleteOne(
         { '_id': cue_id },
@@ -623,15 +561,15 @@ app.post('/delete_cue_by_id', (req, res) => {
     );
 });
 
-// Delete Dance by id and All its Cues
+// Delete All Cues under A Dance
 // NEED FIELDS AND PARAMETERS
-app.post('/delete_dance_by_id', (req, res) => {
+app.post('/node_delete_all_cues_by_dance', (req, res) => {
 
-    // NEEDED: the Dance id
-    const dance_id = req.body._id
+    // NEEDED: the parent Id
+    const dance_id = req.body.dance_id;
 
     Cue.deleteMany(
-        { '_id': { $in: dance_id } },
+        { 'parent_dance': { $in: dance_id } },
         {},
         (err) => {
             if (err) {
@@ -639,69 +577,83 @@ app.post('/delete_dance_by_id', (req, res) => {
                     "message": "Database Error Deleting Cues by Parent Dance id"
                 });
             } else {
-                Dance.deleteOne(
-                    { '_id': dance_id },
-                    {},
-                    (err) => {
-                        if (err) {
-                            res.send({
-                                "message": "Database Error Deleting Dance by id"
-                            });
-                        } else {
-                            res.send({
-                                "message": "success"
-                            });
-                        }
-                    }
-                );
+                res.send({
+                    "message": "success"
+                });
+
             }
         }
     );
 });
 
+// Delete Dance by id
 // NEED FIELDS AND PARAMETERS
-app.post('/delete_show_by_id', (req, res) => {
+app.post('/node_delete_dance_by_id', (req, res) => {
 
-    // NEEDED: the Show id and list of it's Dance ids
-    const show_id = req.body._id;
-    const dance_ids = req.body._ids;
+    // NEEDED: the Dance id
+    const dance_id = req.body._id
 
-    Cue.deleteMany(
-        { '_id': { $in: dance_ids } },
+    Dance.deleteOne(
+        { '_id': dance_id },
         {},
         (err) => {
             if (err) {
                 res.send({
-                    "message": "Database Error Deleting Cues by Parent Dance ids"
+                    "message": "Database Error Deleting Dance by id"
                 });
             } else {
-                Dance.deleteMany(
-                    { '_id': { $in: show_id } },
-                    {},
-                    (err) => {
-                        if (err) {
-                            res.send({
-                                "message": "Database Error Deleting Dance by Parent Show id"
-                            });
-                        } else {
-                            Show.deleteOne(
-                                { '_id': show_id },
-                                {},
-                                (err) => {
-                                    if (err) {
-                                        res.send({
-                                            "message": "Database Error Deleting Show by id"
-                                        });
-                                    } else {
-                                        res.send({
-                                            "message": "success"
-                                        });
-                                    }
-                                }
-                            );
-                        }
-                    }
-                );
+                res.send({
+                    "message": "success"
+                });
+            }
+        }
+    );
+});
+
+// Delete All Cues under A Dance
+// NEED FIELDS AND PARAMETERS
+app.post('/node_delete_all_dances_by_show', (req, res) => {
+
+    // NEEDED: the parent Id
+    const show_id = req.body.show_id;
+
+    Dance.deleteMany(
+        { 'parent_show': { $in: show_id } },
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "Database Error Deleting Dances by Parent Show id"
+                });
+            } else {
+                res.send({
+                    "message": "success"
+                });
+
+            }
+        }
+    );
+});
+
+// Delete show by id
+// NEED FIELDS AND PARAMETERS
+app.post('/node_delete_show_by_id', (req, res) => {
+
+    // NEEDED: the Show id
+    const show_id = req.body._id;
+
+    Show.deleteOne(
+        { '_id': show_id },
+        {},
+        (err) => {
+            if (err) {
+                res.send({
+                    "message": "Database Error Deleting Show by id"
+                });
+            } else {
+                res.send({
+                    "message": "success"
+                });
             }
         }
     );
