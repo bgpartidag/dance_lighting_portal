@@ -65,8 +65,8 @@ const danceSchema = {
         type: String,
         require: true
     },
+    dance_name: {type: String, require: true},
     choreographer: String,
-    length: String,
     comments: String,
     cues: [{
         cue_id: {
@@ -122,6 +122,7 @@ const showSchema = {
             message: "Date format must be mm-dd-yyyy"
         }
     }],
+    show_notes: String,
     dances: [{
         dance_id: {
             type: String,

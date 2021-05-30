@@ -1,42 +1,35 @@
-import React, {useState} from 'react';
-import {useLocation, Link, useHistory} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import $ from "jquery";
 import LightVisualizer from "./LightVsializer";
 
 function EditCue() {
-	//const location = useLocation();
-    const cue = location.state.cue;
-	const dance_id = location.state.dance_id;
-    const [error, setError] = useState('');
+	const [error, setError] = useState('');
 
-	//const history = useHistory();
-    const saveCue=(event)=>{
-        event.preventDefault();
-        setError('');
-        const form = event.target.elements;
-        console.log(form);
+	const saveCue = (event) => {
+		event.preventDefault();
+		setError('');
+		const form = event.target.elements;
+		const cue = {
+			parent_dance: "TBD",
+			start_time: form.cue_start.value,
+			end_time: form.cue_end.value,
+			details: form.light_detail.value
+		}
+		console.log(cue);
 
-		// NEEDED: Need to pass in object id for parent
-		cue.parent_dance = dance_id;
-
-		cue.start_time= form.cue_start.value;
-		cue.end_time= form.cue_end.value;
-        cue.details= form.light_detail;
-
-
-        // if (movie.rating>10){
-        //     setError("Rating can not be greater than 10");
-        // }else{
-            // $.post("/node_add_cue", {cue:cue, dance_id:null, order:null}).done((data)=>{
-            //     if(data.message === 'success'){
-            //         //navigate
-            //         history.push('/', {cue:cue})
-            //     }else{
-            //         setError(data.message);
-            //     }
-            // });
-        //}
-    }
+		// const dance_id = 1;
+		// const order = 1;
+		
+		// $.post("/node_add_cue", {cue:cue, dance_id: dance_id, order:order}).done((data)=>{
+		//     if(data.message === 'success'){
+		//         //navigate
+		//         history.push('/PATHNAME TBD')
+		//     }else{
+		//         setError(data.message);
+		//     }
+		// });
+	}
 
 	return (
 		<section id="edit_que">
@@ -92,17 +85,12 @@ function EditCue() {
 							</label>
 						</div>
 					</div>
-					<div className="row">
-						<div className="row button">
-							<div className="col-12 text-center button_col">
-								<input
-									type="button"
-									className="btn btn-dark"
-									value="Save Cue"
-									onclick="saveCue()"
-									style={{ width: "20%" }}
-								/>
-							</div>
+					<div className="row text-center">
+						<p id="error_message" style={{color: "red"}}>{error}</p>
+					</div>
+					<div className="row button">
+						<div className="col-12 text-center button_col">
+							<button type="submit" className="btn btn-primary" style={{ width: "20%" }}>Save Cue</button>
 						</div>
 					</div>
 				</form>

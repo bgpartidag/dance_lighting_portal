@@ -1,8 +1,41 @@
-import React from "react";
+import React, {useState} from 'react';
 import $ from "jquery";
 import { Link } from "react-router-dom";
 
 function EditShow() {
+	const [error, setError] = useState('');
+	//const history = useHistory();
+
+	const saveShow = (event) => {
+		event.preventDefault();
+		setError('A test run');
+        const form = event.target.elements;
+		console.log("The Start Date: " + form.show_start.value);
+		console.log("The Start Time: " + form.show_start_time.value);
+		const show = {
+			team_username : "TBD",
+			show_name : form.show_name.value,
+			contact_name : form.contact_name.value,
+			contact_email : form.contact_email.value,
+			contact_phone : form.contact_phone.value,
+			show_dates : ["00-00-0000", "11-11-1111"],
+			tech_dates : [form.show_start_time.value, "44-44-4444"],
+			show_notes : form.show_detail.value
+		}
+		console.log(show);
+
+		// $.post('/node_add_show', {show: show}).done((data)=>{
+		// 	if(data.message === 'success'){
+
+		// 		//navigate to show breakdown
+		// 		history.push('/show PATHNAME TBD', {show:show})
+
+		// 	}else{
+		// 		setError(data.message);
+		// 	}
+		// });
+	}
+
 	return (
 		<section id="add_show">
 			<div className="row">
@@ -12,7 +45,7 @@ function EditShow() {
 				<h5 id="team_name"></h5>
 			</div>
 			<div className="row" id="add_form">
-				<form>
+				<form onSubmit={saveShow} method="POST">
 					<div className="row" id="header">
 						<div className="col-md-3 name">
 							<h5>Info:</h5>
@@ -152,7 +185,7 @@ function EditShow() {
 										type="tel"
 										id="contact_phone"
 										name="contact_phone"
-										pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+										pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 										className="form-control"
 									/>
 								</div>
@@ -197,18 +230,12 @@ function EditShow() {
 							></textarea>
 						</div>
 					</div>
-					<div className="row">
-						<p id="error_message"></p>
+					<div className="row text-center">
+						<p id="error_message" style={{color: "red"}}>{error}</p>
 					</div>
 					<div className="row button">
 						<div className="col-12 text-center button_col">
-							<input
-								type="button"
-								className="btn btn-dark"
-								value="Save Show"
-								onclick="saveShow()"
-								style={{ width: "20%" }}
-							/>
+							<button type="submit" className="btn btn-primary" style={{width: "20%"}}>Save Show</button>
 						</div>
 					</div>
 				</form>
