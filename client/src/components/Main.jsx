@@ -20,8 +20,8 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<EditDance />
-				{/* <EditCue /> */}
+				{/* <EditDance /> */}
+				<EditCue />
 				{/* <EditShow /> */}
 			</div>
 			<Footer />

@@ -1,49 +1,45 @@
 import React from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
+import LightCard from "./LightCard";
 
 function LightVisualizer() {
 	return (
-		<div class="card">
-			<div className="btn-group" data-toggle="buttons">
+		<div className="card">
+			<div class="card-body">
 				<div className="container">
 					<div className="row">
-						<label className="btn col btn-primary active">
-							<input type="radio" name="lights" id="backspot1" defaultChecked />{" "}
-							Back-Left Spot
-						</label>
-						<label className="btn col btn-primary">
-							<input type="radio" name="lights" id="backspot1" /> Back-Center
-							Spot
-						</label>
-						<label className="btn col btn-primary">
-							<input type="radio" name="lights" id="backspot1" /> Back-Right
-							Spot
-						</label>
+						<div className="col-sm-4">
+							<LightCard name="Back-Left Spot" hasColor="false" />
+						</div>
+						<div className="col-sm-4">
+							<LightCard name="Back-Center Spot" hasColor="false" />
+						</div>
+						<div className="col-sm-4">
+							<LightCard name="Back-Right Spot" hasColor="false" />
+						</div>
 					</div>
 					<div className="row">
-						<label className="btn col btn-primary">
-							<input type="radio" name="lights" id="leftspot" /> Left Spot
-						</label>
-						<label className="btn col btn-primary">
-							<input type="radio" name="lights" id="mannedspot" /> Manned Spot
-						</label>
-						<label className="btn col btn-primary">
-							<input type="radio" name="lights" id="rightspot" /> Right Spot
-						</label>
+						<div className="col-sm-4">
+							<LightCard name="Left Spot" hasColor="false" />
+						</div>
+						<div className="col-sm-4">
+							<LightCard name="Manned Spot" hasColor="false" />
+						</div>
+						<div className="col-sm-4">
+							<LightCard name="Right Spot" hasColor="false" />
+						</div>
 					</div>
 					<div className="row">
 						<div className="col-2"></div>
 						<div className="col-8">
 							<div className="row">
-								<label className="btn col btn-primary">
-									<input type="radio" name="lights" id="leftflood" />
-									Left Flood
-								</label>
-								<label className="btn col btn-primary">
-									<input type="radio" name="lights" id="rightflood" /> Right
-									Flood
-								</label>
+								<div className="col-sm-6">
+									<LightCard name="Left Flood" hasColor="true" />
+								</div>
+								<div className="col-sm-6">
+									<LightCard name="Right Flood" hasColor="true" />
+								</div>
 							</div>
 						</div>
 					</div>
