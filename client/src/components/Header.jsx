@@ -55,9 +55,6 @@ function Header(props) {
 							/>
 							CU Dance and Lighting Portal
 						</Link>
-						<Link className="nav-link" to="/">
-							Home
-						</Link>
 					</div>
 					{/*... extends dictionary with props dict*/}
 					<UserLogin {...props} />
