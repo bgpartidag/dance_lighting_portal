@@ -27,33 +27,33 @@ function LightCard(props) {
 						autocomplete="off"
 					/>
 					<label
-						className="btn btn-outline-primary form-control"
+						className="btn btn-outline-dark form-control"
 						for={ID + "_button"}
 					>
 						{name}
 					</label>
 					<br />
-					<label for={ID + "_brightness"} className="form-label">
-						Brightness:
+					<p style={{ textAlign: "center" }}>Brightness:</p>
+					<div className="row">
 						<input
 							id={ID + "_brightness"}
 							classname="custom-range"
 							type="range"
 							min="0"
 							max="100"
+							style={{ alignItems: "center", width: "80%" }}
 							defaultValue={light.brightness}
 						/>
-					</label>
-					<label for={ID + "_color"} className="form-label">
-						Color:
-						<input
-							type="text"
-							name="color"
-							id={ID + "_color"}
-							className="form-control"
-							defaultValue={light.color}
-						/>
-					</label>
+					</div>
+					<p style={{ textAlign: "center" }}>Color:</p>
+					<input
+						type="text"
+						name="color"
+						id={ID + "_color"}
+						className="form-control"
+						style={{ textAlign: "center" }}
+						defaultValue={light.color}
+					/>
 				</div>
 			</div>
 		);
@@ -68,23 +68,24 @@ function LightCard(props) {
 						autocomplete="off"
 					/>
 					<label
-						className="btn btn-outline-primary form-control"
+						className="btn btn-outline-dark form-control"
 						for={ID + "_button"}
 					>
 						{name}
 					</label>
 					<br />
-					<label for={ID + "_brightness"} className="form-label">
-						Brightness:
+					<div className="row">
+						<p style={{ textAlign: "center" }}>Brightness:</p>
 						<input
 							id={ID + "_brightness"}
 							classname="custom-range"
 							type="range"
 							min="0"
 							max="100"
+							style={{ textAlign: "center" }}
 							defaultValue={light.brightness}
 						/>
-					</label>
+					</div>
 				</div>
 			</div>
 		);

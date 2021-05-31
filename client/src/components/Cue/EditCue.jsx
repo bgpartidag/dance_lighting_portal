@@ -63,7 +63,7 @@ function EditCue(props) {
 				</div>
 				<form id="edit_form" onSubmit={saveCue} method="POST">
 					<div className="row">
-						<div className="col-2">
+						<div className="col-md-2">
 							<div>
 								<h5>Cue Time:</h5>
 							</div>
@@ -92,22 +92,19 @@ function EditCue(props) {
 								</label>
 							</div>
 						</div>
-						<div className="col-8">
+						<div className="col-md-8">
 							<LightVisualizer cue={cue} />
 						</div>
-						<div className="col-2">
+						<div className="col-md-2">
 							<h5>Cue Details:</h5>
-							<label for="light_detail" className="form-label">
-								Details:
-								<textarea
-									type="text"
-									id="light_detail"
-									name="light_detail"
-									defaultValue={cue.cue_notes}
-									className="form-control"
-									style={{ height: "100%", textAlign: "left" }}
-								></textarea>
-							</label>
+							<textarea
+								type="text"
+								id="light_detail"
+								name="light_detail"
+								defaultValue={cue.cue_notes}
+								className="form-control"
+								style={{ height: "20%", textAlign: "left" }}
+							></textarea>
 						</div>
 					</div>
 					<div className="row text-center">
