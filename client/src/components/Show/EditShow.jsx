@@ -1,32 +1,32 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
 
 function EditShow() {
-	const [error, setError] = useState('');
+	const [error, setError] = useState("");
 	//const history = useHistory();
 
 	const saveShow = (event) => {
 		event.preventDefault();
-		setError('A test run');
-        const form = event.target.elements;
+		setError("A test run");
+		const form = event.target.elements;
 		console.log("The Start Date: " + form.show_start.value);
 		const show = {
-			team_username : "TBD",
-			show_name : form.show_name.value,
-			contact_name : form.contact_name.value,
-			contact_email : form.contact_email.value,
-			contact_phone : form.contact_phone.value,
-			show_start_date : "00-00-0000",
+			team_username: "TBD",
+			show_name: form.show_name.value,
+			contact_name: form.contact_name.value,
+			contact_email: form.contact_email.value,
+			contact_phone: form.contact_phone.value,
+			show_start_date: "00-00-0000",
 			show_end_date: "11-11-1111",
 			show_start_time: form.show_start_time.value,
 			show_end_time: form.show_end_time.value,
-			tech_start_date : "33-33-3333", 
+			tech_start_date: "33-33-3333",
 			tech_end_date: "44-44-4444",
 			tech_start_time: form.tech_start_time.value,
 			tech_end_time: form.tech_end_time.value,
-			show_notes : form.show_detail.value
-		}
+			show_notes: form.show_detail.value,
+		};
 		console.log(show);
 
 		// $.post('/node_add_show', {show: show}).done((data)=>{
@@ -39,7 +39,7 @@ function EditShow() {
 		// 		setError(data.message);
 		// 	}
 		// });
-	}
+	};
 
 	return (
 		<section id="add_show">
@@ -239,11 +239,19 @@ function EditShow() {
 
 					<br/>
 					<div className="row text-center">
-						<p id="error_message" style={{color: "red"}}>{error}</p>
+						<p id="error_message" style={{ color: "red" }}>
+							{error}
+						</p>
 					</div>
 					<div className="row button">
 						<div className="col-12 text-center button_col">
-							<button type="submit" className="btn btn-primary" style={{width: "20%"}}>Save Show</button>
+							<button
+								type="submit"
+								className="btn btn-primary"
+								style={{ width: "20%" }}
+							>
+								Save Show
+							</button>
 						</div>
 					</div>
 				</form>
