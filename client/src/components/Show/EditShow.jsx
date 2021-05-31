@@ -79,6 +79,7 @@ function EditShow() {
 										value=""
 										id="show_name"
 										className="form-control"
+										placeholder='Show'
 									/>
 									<label for="contact_name" className="form-label">
 										Contact Name:
@@ -89,6 +90,7 @@ function EditShow() {
 										value=""
 										id="contact_name"
 										className="form-control"
+										placeholder='Contact'
 									/>
 									<label for="contact_name" className="form-label">
 										Email:
@@ -99,6 +101,7 @@ function EditShow() {
 										value=""
 										id="contact_email"
 										className="form-control"
+										placeholder='contact@email.com'
 									/>
 									<label for="contact_phone" className="form-label">
 										Phone:
@@ -109,6 +112,7 @@ function EditShow() {
 										name="contact_phone"
 										pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 										className="form-control"
+										placeholder='xxx-xxx-xxxx'
 									/>
 								</div>
 								</div>
@@ -231,6 +235,7 @@ function EditShow() {
 								id="show_detail"
 								name="show_detail"
 								className="form-control"
+								placeholder="Details..."
 								style={{ height: "85%", textAlign: "left"}}
 							></textarea>
 						</div>

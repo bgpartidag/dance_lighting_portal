@@ -52,6 +52,7 @@ function EditDance() {
 										value=""
 										id="dance_name"
 										className="form-control"
+										placeholder='Dance'
 									/>
 								</label>
 							</div>
@@ -65,6 +66,7 @@ function EditDance() {
 										value=""
 										id="choreographer_name"
 										className="form-control"
+										placeholder='Choreographer'
 									/>
 								</label>
 							</div>
@@ -76,6 +78,7 @@ function EditDance() {
 									id="dance_info"
 									name="dance_info"
 									className="form-control"
+									placeholder='Dance info...'
 									style={{ height: "100%", textAlign: "left" }}
 								></textarea>
 							</label>

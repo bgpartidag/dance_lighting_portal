@@ -52,6 +52,7 @@ function EditCue() {
 										value=""
 										id="cue_start"
 										className="form-control"
+										placeholder='Time'
 									/>
 								</label>
 							</div>
@@ -64,6 +65,7 @@ function EditCue() {
 										value=""
 										id="cue_end"
 										className="form-control"
+										placeholder='Time'
 									/>
 								</label>
 							</div>
@@ -80,6 +82,7 @@ function EditCue() {
 									id="light_detail"
 									name="light_detail"
 									className="form-control"
+									placeholder='Details...'
 									style={{ height: "100%", textAlign: "left" }}
 								></textarea>
 							</label>
