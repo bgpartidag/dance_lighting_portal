@@ -53,6 +53,7 @@ function LightCard(props) {
 					<input
 						type="text"
 						name="color"
+						placeholder="Color"
 						id={ID + "_color"}
 						className="form-control"
 						defaultValue={light.color}

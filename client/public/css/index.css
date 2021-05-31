@@ -12,6 +12,11 @@
 	border-color: black;
 }
 
+.light_visualizer {
+	color: white;
+	background-color: black;
+}
+
 nav {
 	padding: 10px;
 	background-color: var(--prussian-blue);
@@ -45,5 +50,7 @@ h5 {
 Google fonts
 */
 #root {
-	font-family: "Playfair Display", serif;
+	font-family: "Lora", serif;
+	/* font-family: 'Open Sans Condensed', sans-serif; */
+	/* font-family: 'Playfair Display', serif; */
 }
