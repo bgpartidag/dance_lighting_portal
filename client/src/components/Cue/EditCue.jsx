@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import $ from "jquery";
-import LightVisualizer from "./LightVsializer";
+import LightVisualizer from "./LightVisualizer";
 
 function EditCue() {
 	const [error, setError] = useState('');
@@ -50,6 +50,7 @@ function EditCue() {
 										name="cue_start"
 										id="cue_start"
 										className="form-control"
+										placeholder='Time'
 									/>
 								</label>
 							</div>
@@ -61,6 +62,7 @@ function EditCue() {
 										name="cue_end"
 										id="cue_end"
 										className="form-control"
+										placeholder='Time'
 									/>
 								</label>
 							</div>
@@ -77,6 +79,7 @@ function EditCue() {
 									id="light_detail"
 									name="light_detail"
 									className="form-control"
+									placeholder='Details...'
 									style={{ height: "100%", textAlign: "left" }}
 								></textarea>
 							</label>
