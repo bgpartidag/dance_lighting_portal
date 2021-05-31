@@ -11,24 +11,23 @@ function EditCue() {
 		setError('');
 		const form = event.target.elements;
 		const cue = {
-			parent_dance: "TBD",
+			parent_dance: "60b4448e2f29a92ef43ee39b",
 			start_time: form.cue_start.value,
 			end_time: form.cue_end.value,
-			details: form.light_detail.value
+			cue_notes: form.light_detail.value
 		}
 		console.log(cue);
-
-		// const dance_id = 1;
-		// const order = 1;
 		
-		// $.post("/node_add_cue", {cue:cue, dance_id: dance_id, order:order}).done((data)=>{
-		//     if(data.message === 'success'){
-		//         //navigate
-		//         history.push('/PATHNAME TBD')
-		//     }else{
-		//         setError(data.message);
-		//     }
-		// });
+		$.post("/node_add_cue", {cue:cue}).done((data)=>{
+		    if(data.message === 'success'){
+		        //navigate
+		        //history.push('/PATHNAME TBD')
+				console.log(data.cue._id);
+				setError('navigation not in place');
+		    }else{
+		        setError(data.message.message);
+		    }
+		});
 	}
 
 	return (
@@ -49,7 +48,6 @@ function EditCue() {
 									<input
 										type="text"
 										name="cue_start"
-										value=""
 										id="cue_start"
 										className="form-control"
 									/>
@@ -61,7 +59,6 @@ function EditCue() {
 									<input
 										type="text"
 										name="cue_end"
-										value=""
 										id="cue_end"
 										className="form-control"
 									/>

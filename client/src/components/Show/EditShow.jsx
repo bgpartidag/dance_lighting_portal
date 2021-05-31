@@ -8,7 +8,7 @@ function EditShow() {
 
 	const saveShow = (event) => {
 		event.preventDefault();
-		setError('A test run');
+		setError('');
         const form = event.target.elements;
 		console.log("The Start Date: " + form.show_start.value);
 		const show = {
@@ -29,16 +29,21 @@ function EditShow() {
 		}
 		console.log(show);
 
-		// $.post('/node_add_show', {show: show}).done((data)=>{
-		// 	if(data.message === 'success'){
-
-		// 		//navigate to show breakdown
-		// 		history.push('/show PATHNAME TBD', {show:show})
-
-		// 	}else{
-		// 		setError(data.message);
-		// 	}
-		// });
+		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone){
+			setError('Only Details can be left empty. Please fill in everything else.');
+		}else{
+			$.post('/node_add_show', {show:show}).done((data)=>{
+				if(data.message === 'success'){
+	
+					//navigate to show breakdown
+					//history.push('/show PATHNAME TBD', {show:show})
+					console.log(data.show._id);
+					setError('navigation not in place');
+				}else{
+					setError(data.message.message);
+				}
+			});
+		}
 	}
 
 	return (
@@ -72,36 +77,19 @@ function EditShow() {
 									<label for="show_name" className="form-label">
 										Show Name:
 									</label>
-									<input
-										type="text"
-										name="show_name"
-										value=""
-										id="show_name"
-										className="form-control"
-									/>
+									<input type="text" className="form-control" id="show_name" placeholder="Show Name" name="show_name"/>
 								</div>
 								<div className="col-md-4 show">
 									<label for="show_start" className="form-label">
 										Start Date:
 									</label>
-									<input
-										type="date"
-										id="show_start"
-										name="show_start"
-										value=""
-										className="form-control"
-									/>
+									<input type="date" id="show_start" name="show_start" value="" className="form-control"/>
 								</div>
 								<div className="col-md-4 tech">
 									<label for="tech_start" className="form-label">
 										Start Date:
 									</label>
-									<input
-										type="date"
-										id="tech_start"
-										name="tech_start"
-										value=""
-										className="form-control"
+									<input type="date" id="tech_start" name="tech_start" value="" className="form-control"
 									/>
 								</div>
 							</div>
@@ -110,13 +98,7 @@ function EditShow() {
 									<label for="contact_name" className="form-label">
 										Contact Name:
 									</label>
-									<input
-										type="text"
-										name="contact_name"
-										value=""
-										id="contact_name"
-										className="form-control"
-									/>
+									<input type="text" name="contact_name" id="contact_name" className="form-control" placeholder="Contact Name"/>
 								</div>
 								<div className="col-md-4 show">
 									<label for="show_end" className="form-label">
@@ -126,7 +108,6 @@ function EditShow() {
 										type="date"
 										id="show_end"
 										name="show_end"
-										value=""
 										className="form-control"
 									/>
 								</div>
@@ -138,7 +119,6 @@ function EditShow() {
 										type="date"
 										id="tech_end"
 										name="tech_end"
-										value=""
 										className="form-control"
 									/>
 								</div>
@@ -151,7 +131,7 @@ function EditShow() {
 									<input
 										type="text"
 										name="contact_email"
-										value=""
+										placeholder="contact@email.com"
 										id="contact_email"
 										className="form-control"
 									/>
@@ -192,6 +172,7 @@ function EditShow() {
 										type="tel"
 										id="contact_phone"
 										name="contact_phone"
+										placeholder="xxx-xxx-xxxx"
 										pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 										className="form-control"
 									/>
@@ -232,12 +213,12 @@ function EditShow() {
 								type="text"
 								id="show_detail"
 								name="show_detail"
+								placeholder="Any Comments"
 								className="form-control"
 								style={{ height: "85%", textAlign: "left" }}
 							></textarea>
 						</div>
 					</div>
-
 					<div className="row text-center">
 						<p id="error_message" style={{color: "red"}}>{error}</p>
 					</div>

@@ -36,25 +36,25 @@ const cueSchema = {
         type: String,
         validate: {
             validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
+                return /\d{1}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be 0:00"
         }
     },
     end_time: {
         type: String,
         validate: {
             validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
+                return /\d{1}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be 0:00"
         }
     },
     cue_notes: String,
     lights: [{
         light_name: String,
         color: String,
-        brightness: String
+        brightness: Number
     }]
 }
 
@@ -70,14 +70,14 @@ const danceSchema = {
         type: String,
         validate: {
             validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
+                return /\d{1}:\d{2}/.test(value)
             },
-            message: "Length format must be mm:ss"
+            message: "Length format must be 0:00"
         }
     },
     choreographer: String,
     dance_notes: String,
-    status : String
+    status: String
 }
 
 const Dance = mongoose.model('Dance', danceSchema);
@@ -110,7 +110,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}-\d{2}-\d{4}/.test(value)
             },
-            message: "Date format must be mm-dd-yyyy"
+            message: "Date format must be MM-DD-YYYY"
         }
     },
     show_end_date: {
@@ -119,7 +119,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}-\d{2}-\d{4}/.test(value)
             },
-            message: "Date format must be mm-dd-yyyy"
+            message: "Date format must be MM-DD-YYYY"
         }
     },
     show_start_time: {
@@ -128,7 +128,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be MM:SS"
         }
     },
     show_end_time: {
@@ -137,7 +137,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be MM:SS"
         }
     },
     tech_start_date: {
@@ -146,7 +146,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}-\d{2}-\d{4}/.test(value)
             },
-            message: "Date format must be mm-dd-yyyy"
+            message: "Date format must be MM-DD-YYYY"
         }
     },
     tech_end_date: {
@@ -155,7 +155,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}-\d{2}-\d{4}/.test(value)
             },
-            message: "Date format must be mm-dd-yyyy"
+            message: "Date format must be MM-DD-YYYY"
         }
     },
     tech_start_time: {
@@ -164,7 +164,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be MM:SS"
         }
     },
     tech_end_time: {
@@ -173,7 +173,7 @@ const showSchema = {
             validator: function (value) {
                 return /\d{2}:\d{2}/.test(value)
             },
-            message: "Time format must be mm:ss"
+            message: "Time format must be MM:SS"
         }
     },
     show_notes: String,
@@ -478,11 +478,12 @@ app.post("/node_add_show", (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "show": show,
+                        "show": info
                     });
                 } else {
                     res.send({
-                        "message": "success"
+                        "message": "success",
+                        "show": info
                     })
                 }
             });
@@ -494,14 +495,16 @@ app.post("/node_add_show", (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "show": show
+                        "show": new_show
                     });
                 } else {
                     res.send({
                         "message": "success",
+                        "show": new_show
                     });
                 }
-            });
+            }
+        );
     }
 });
 
@@ -521,11 +524,12 @@ app.post("/node_add_dance", (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "dance": dance,
+                        "dance": info,
                     });
                 } else {
                     res.send({
-                        "message": "success"
+                        "message": "success",
+                        "dance": info,
                     })
                 }
             });
@@ -568,11 +572,12 @@ app.post('/node_add_cue', (req, res) => {
                 if (err) {
                     res.send({
                         "message": err,
-                        "cue": cue,
+                        "cue": info
                     });
                 } else {
                     res.send({
-                        "message": "success"
+                        "message": "success",
+                        "cue": info
                     })
                 }
             }
