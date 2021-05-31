@@ -7,7 +7,6 @@
 	--prussian-blue: #1d3557ff;
 }
 
-
 .btn {
 	background-color: var(--celadon-blue);
 	border-color: black;
@@ -37,9 +36,14 @@ h5 {
 	text-align: center;
 }
 
+/* Add padding around light cards in LightVisualizer */
+.light_card {
+	padding: 10px;
+}
+
 /*
 Google fonts
 */
-#root{
-	font-family: 'Playfair Display', serif;
+#root {
+	font-family: "Playfair Display", serif;
 }

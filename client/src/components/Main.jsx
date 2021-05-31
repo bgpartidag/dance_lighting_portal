@@ -33,7 +33,9 @@ function Main() {
 					<Route path="/edit_cue">
 						<EditCue />
 					</Route>
-					{/* <Route path='/add_show'><AddShow/></Route> */}
+					<Route path="/show">
+						<Show />
+					</Route>
 					{/* <Route path='/show_breakdown'><ShowBreakdown/></Route> */}
 					{/* <Route path='/lighting_info'><LightingInfo/></Route> */}
 					{/* <Route path='/tech_registration'><TechRegistration/></Route> */}

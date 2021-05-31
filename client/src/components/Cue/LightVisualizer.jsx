@@ -12,7 +12,7 @@ function LightVisualizer(props) {
 				<div class="card-body">
 					<div className="container">
 						<div className="row">
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Back-Left Spot"
 									ID="back_left_spot"
@@ -20,7 +20,7 @@ function LightVisualizer(props) {
 									hasColor="false"
 								/>
 							</div>
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Back-Center Spot"
 									ID="back_center_spot"
@@ -28,7 +28,7 @@ function LightVisualizer(props) {
 									hasColor="false"
 								/>
 							</div>
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Back-Right Spot"
 									ID="back_right_spot"
@@ -38,7 +38,7 @@ function LightVisualizer(props) {
 							</div>
 						</div>
 						<div className="row">
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Left Spot"
 									ID="left_spot"
@@ -46,7 +46,7 @@ function LightVisualizer(props) {
 									hasColor="false"
 								/>
 							</div>
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Manned Spot"
 									ID="manned_spot"
@@ -54,7 +54,7 @@ function LightVisualizer(props) {
 									hasColor="false"
 								/>
 							</div>
-							<div className="col-lg-4">
+							<div className="col-lg-4 light_card">
 								<LightCard
 									name="Right Spot"
 									ID="right_spot"
@@ -67,7 +67,7 @@ function LightVisualizer(props) {
 							<div className="col-2"></div>
 							<div className="col-8">
 								<div className="row">
-									<div className="col-lg-6">
+									<div className="col-lg-6 light_card">
 										<LightCard
 											name="Left Flood"
 											ID="left_flood"
@@ -75,7 +75,7 @@ function LightVisualizer(props) {
 											hasColor="true"
 										/>
 									</div>
-									<div className="col-lg-6">
+									<div className="col-lg-6 light_card">
 										<LightCard
 											name="Right Flood"
 											ID="right_flood"
