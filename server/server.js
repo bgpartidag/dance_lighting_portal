@@ -50,7 +50,7 @@ const cueSchema = {
             message: "Time format must be mm:ss"
         }
     },
-    details: String,
+    cue_notes: String,
     lights: [{
         light_name: String,
         color: String,
@@ -66,8 +66,18 @@ const danceSchema = {
         require: true
     },
     dance_name: { type: String, require: true },
+    dance_length: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Length format must be mm:ss"
+        }
+    },
     choreographer: String,
-    comments: String,
+    dance_notes: String,
+    status : String
 }
 
 const Dance = mongoose.model('Dance', danceSchema);
@@ -94,7 +104,7 @@ const showSchema = {
         type: String,
         require: [true, "Contact  cannot be empty"]
     },
-    show_dates: [{
+    show_start_date: {
         type: String,
         validate: {
             validator: function (value) {
@@ -102,8 +112,8 @@ const showSchema = {
             },
             message: "Date format must be mm-dd-yyyy"
         }
-    }],
-    tech_dates: [{
+    },
+    show_end_date: {
         type: String,
         validate: {
             validator: function (value) {
@@ -111,7 +121,61 @@ const showSchema = {
             },
             message: "Date format must be mm-dd-yyyy"
         }
-    }],
+    },
+    show_start_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
+    show_end_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
+    tech_start_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}-\d{2}-\d{4}/.test(value)
+            },
+            message: "Date format must be mm-dd-yyyy"
+        }
+    },
+    tech_end_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}-\d{2}-\d{4}/.test(value)
+            },
+            message: "Date format must be mm-dd-yyyy"
+        }
+    },
+    tech_start_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
+    tech_end_time: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Time format must be mm:ss"
+        }
+    },
     show_notes: String,
 }
 

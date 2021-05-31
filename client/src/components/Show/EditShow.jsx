@@ -11,15 +11,20 @@ function EditShow() {
 		setError("A test run");
 		const form = event.target.elements;
 		console.log("The Start Date: " + form.show_start.value);
-		console.log("The Start Time: " + form.show_start_time.value);
 		const show = {
 			team_username: "TBD",
 			show_name: form.show_name.value,
 			contact_name: form.contact_name.value,
 			contact_email: form.contact_email.value,
 			contact_phone: form.contact_phone.value,
-			show_dates: ["00-00-0000", "11-11-1111"],
-			tech_dates: [form.show_start_time.value, "44-44-4444"],
+			show_start_date: "00-00-0000",
+			show_end_date: "11-11-1111",
+			show_start_time: form.show_start_time.value,
+			show_end_time: form.show_end_time.value,
+			tech_start_date: "33-33-3333",
+			tech_end_date: "44-44-4444",
+			tech_start_time: form.tech_start_time.value,
+			tech_end_time: form.tech_end_time.value,
 			show_notes: form.show_detail.value,
 		};
 		console.log(show);
@@ -44,20 +49,22 @@ function EditShow() {
 			<div className="row">
 				<h5 id="team_name"></h5>
 			</div>
+
 			<div className="row" id="add_form">
 				<form onSubmit={saveShow} method="POST">
 					<div className="row" id="header">
 						<div className="col-md-3 name">
-							<h5>Info:</h5>
+							<h5>Info</h5>
 						</div>
 						<div className="col-md-3 show">
-							<h5>Show:</h5>
+							<h5>Show</h5>
 						</div>
 						<div className="col-md-3 tech">
-							<h5>Tech:</h5>
+							<h5>Tech</h5>
 						</div>
 						<div className="col-md-3 det"></div>
 					</div>
+
 					<div className="row inputs">
 						<div className="col-md-9 boxes">
 							<div className="row" id="form1">
@@ -230,6 +237,7 @@ function EditShow() {
 							></textarea>
 						</div>
 					</div>
+
 					<div className="row text-center">
 						<p id="error_message" style={{ color: "red" }}>
 							{error}
