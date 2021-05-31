@@ -7,10 +7,14 @@
 	--prussian-blue: #1d3557ff;
 }
 
-
 .btn {
 	background-color: var(--celadon-blue);
 	border-color: black;
+}
+
+.light_visualizer {
+	color: white;
+	background-color: black;
 }
 
 nav {
@@ -37,9 +41,16 @@ h5 {
 	text-align: center;
 }
 
+/* Add padding around light cards in LightVisualizer */
+.light_card {
+	padding: 10px;
+}
+
 /*
 Google fonts
 */
-#root{
-	font-family: 'Playfair Display', serif;
+#root {
+	font-family: "Lora", serif;
+	/* font-family: 'Open Sans Condensed', sans-serif; */
+	/* font-family: 'Playfair Display', serif; */
 }

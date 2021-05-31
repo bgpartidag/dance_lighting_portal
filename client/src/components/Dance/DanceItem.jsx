@@ -1,11 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import $ from "jquery";
 
 function DanceItem(props) {
 	const row_class = "row " + props.evenOdd;
 	const dance = props.dance;
+	const cues = [];
 
-	function moveDance(direction, dance) {}
+	// get all cues
+	$.get("/node_get_all_cues_by_dance", { id: dance.id }).done((data) => {
+		if (data.message === "success") {
+			cues = data.cues;
+		}
+	});
+
+	// Allow for reordering dances (removed in this version)
+	// function moveDance(direction, dance) {}
 
 	return (
 		<div className={row_class}>
@@ -26,14 +36,17 @@ function DanceItem(props) {
 				</Link>
 				<p>{dance.choreographer}</p>
 			</div>
-			<div className="col-lg-4">
+			<div className="col-lg-3">
 				<p>{"Duration: " + dance.length}</p>
 			</div>
 
 			<div className="col-lg-3" style={{ textAlign: "right" }}>
 				<p>Status: {dance.status}</p>
 			</div>
-			<div className="col-lg-1" style={{ textAlign: "right" }}>
+			<div className="col-lg-2" style={{ textAlign: "right" }}>
+				<p>Cues: {cues.length}</p>
+			</div>
+			{/* <div className="col-lg-1" style={{ textAlign: "right" }}>
 				<i
 					type="button"
 					onClick={moveDance("up", dance.dance_name)}
@@ -45,7 +58,7 @@ function DanceItem(props) {
 					onClick={moveDance("down", dance.dance_name)}
 					class="fas fa-arrow-circle-down"
 				></i>
-			</div>
+			</div> */}
 		</div>
 	);
 }

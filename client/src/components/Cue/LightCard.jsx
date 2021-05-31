@@ -5,15 +5,19 @@ function LightCard(props) {
 	const hasColor = props.hasColor;
 	const cue = props.cue;
 	const ID = props.ID;
+	// get the current light if it has a value
 	const findLight = cue.lights.find((l) => l.light_name === ID);
+	// default light
 	let light = {
 		brightness: 0,
 		color: "",
 	};
+	// replace teh default light with result of find
 	if (findLight) {
 		light = findLight;
 		console.log(light);
 	}
+	// flood light case
 	if (hasColor === "true") {
 		// get cue by name
 
@@ -39,11 +43,11 @@ function LightCard(props) {
 						<input
 							id={ID + "_brightness"}
 							name={ID + "_brightness"}
-							classname="custom-range"
+							classname="form-control-range"
 							type="range"
 							min="0"
 							max="100"
-							style={{ alignItems: "center", width: "80%" }}
+							style={{ alignItems: "center" }}
 							defaultValue={light.brightness}
 						/>
 					</div>
@@ -51,15 +55,17 @@ function LightCard(props) {
 					<input
 						type="text"
 						name={ID + "_color"}
+						placeholder="Color"
 						id={ID + "_color"}
 						className="form-control"
-						style={{ textAlign: "center" }}
 						defaultValue={light.color}
 					/>
 				</div>
 			</div>
 		);
-	} else {
+	}
+	// spot light case
+	else {
 		return (
 			<div class="card">
 				<div class="card-body">
@@ -82,11 +88,10 @@ function LightCard(props) {
 						<input
 							id={ID + "_brightness"}
 							name={ID + "_brightness"}
-							classname="custom-range"
+							classname="form-control-range"
 							type="range"
 							min="0"
 							max="100"
-							style={{ textAlign: "center" }}
 							defaultValue={light.brightness}
 						/>
 					</div>
