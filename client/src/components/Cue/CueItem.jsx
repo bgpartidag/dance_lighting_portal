@@ -15,13 +15,15 @@ function CueItem(props) {
 						pathname: "/edit_cue",
 						state: {
 							cue: cue,
-							dance_id: "A dance id i guess",
+							dance: props.dance, 
+							show: props.show, 
+							show_id: props.show_id
 						},
 					}}
 				>
 					{cue.name}
 				</Link>
-				<p>Duration: {cue.end_time - cue.start_time}</p>
+				<p>Duration: {cue.end_time} - {cue.start_time}</p>
 			</div>
 			<div className="col-lg-8">
 				<ul className="list-group">

@@ -1,44 +1,45 @@
 import React, { useState } from "react";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import {useLocation, Link, useHistory} from 'react-router-dom';
 
 function EditShow() {
 	const [error, setError] = useState("");
-	//const history = useHistory();
+	const history = useHistory();
 
 	const saveShow = (event) => {
 		event.preventDefault();
 		setError('');
         const form = event.target.elements;
-		console.log("The Start Date: " + form.show_start.value);
+
 		const show = {
 			team_username: "TBD",
 			show_name: form.show_name.value,
 			contact_name: form.contact_name.value,
 			contact_email: form.contact_email.value,
 			contact_phone: form.contact_phone.value,
-			show_start_date: "00-00-0000",
-			show_end_date: "11-11-1111",
+			show_start_date: form.show_start.value,
+			show_end_date: form.show_end.value,
 			show_start_time: form.show_start_time.value,
 			show_end_time: form.show_end_time.value,
-			tech_start_date: "33-33-3333",
-			tech_end_date: "44-44-4444",
+			tech_start_date: form.tech_start.value,
+			tech_end_date: form.tech_end.value,
 			tech_start_time: form.tech_start_time.value,
 			tech_end_time: form.tech_end_time.value,
 			show_notes: form.show_detail.value,
 		};
-		console.log(show);
 
 		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone){
 			setError('Only Details can be left empty. Please fill in everything else.');
+		}else if (!show.show_start_date || !show.show_start_time || !show.show_end_date || !show.show_end_time || !show.tech_start_date || !show.tech_start_time || !show.tech_end_date || !show.tech_end_time) {
+			setError('Only Details can be left empty. Please fill in everything else.');
 		}else{
+			console.log("saving show")
 			$.post('/node_add_show', {show:show}).done((data)=>{
 				if(data.message === 'success'){
 	
 					//navigate to show breakdown
-					//history.push('/show PATHNAME TBD', {show:show})
-					console.log(data.show._id);
-					setError('navigation not in place');
+					//console.log(data.show._id);
+					history.push('/show', {show:show , show_id: data.show._id})
 				}else{
 					setError(data.message.message);
 				}
@@ -152,7 +153,6 @@ function EditShow() {
 										type="date"
 										id="show_end"
 										name="show_end"
-										value=""
 										className="form-control"
 									/>
 									<label for="show_end_time" className="form-label">
@@ -202,7 +202,6 @@ function EditShow() {
 										type="date"
 										id="tech_end"
 										name="tech_end"
-										value=""
 										className="form-control"
 									/> 
 									<label for="tech_end_time" className="form-label">

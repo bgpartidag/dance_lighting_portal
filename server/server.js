@@ -70,7 +70,7 @@ const danceSchema = {
         type: String,
         validate: {
             validator: function (value) {
-                return /\d{1}:\d{2}/.test(value)
+                return /\d{2}:\d{2}/.test(value)
             },
             message: "Length format must be 0:00"
         }
@@ -104,78 +104,14 @@ const showSchema = {
         type: String,
         require: [true, "Contact  cannot be empty"]
     },
-    show_start_date: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}-\d{2}-\d{4}/.test(value)
-            },
-            message: "Date format must be MM-DD-YYYY"
-        }
-    },
-    show_end_date: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}-\d{2}-\d{4}/.test(value)
-            },
-            message: "Date format must be MM-DD-YYYY"
-        }
-    },
-    show_start_time: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
-            },
-            message: "Time format must be MM:SS"
-        }
-    },
-    show_end_time: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
-            },
-            message: "Time format must be MM:SS"
-        }
-    },
-    tech_start_date: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}-\d{2}-\d{4}/.test(value)
-            },
-            message: "Date format must be MM-DD-YYYY"
-        }
-    },
-    tech_end_date: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}-\d{2}-\d{4}/.test(value)
-            },
-            message: "Date format must be MM-DD-YYYY"
-        }
-    },
-    tech_start_time: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
-            },
-            message: "Time format must be MM:SS"
-        }
-    },
-    tech_end_time: {
-        type: String,
-        validate: {
-            validator: function (value) {
-                return /\d{2}:\d{2}/.test(value)
-            },
-            message: "Time format must be MM:SS"
-        }
-    },
+    show_start_date: String,
+    show_end_date: String,
+    show_start_time: String,
+    show_end_time: String,
+    tech_start_date: String,
+    tech_end_date: String,
+    tech_start_time: String,
+    tech_end_time: String,
     show_notes: String,
 }
 
@@ -417,12 +353,12 @@ app.get('/node_get_dance_by_id', function (req, res) {
 app.get('/node_get_all_dances_by_show', function (req, res) {
 
     // NEEDED: the Show ID
-    const show_id = req.body.show_id;
+    const show_id = req.query.show_id;
 
     Dance.find(
-        { parent_show: show_id },
+        { parent_show: {$eq:show_id} },
         function (err, data) {
-            if (err || data.length === 0) {
+            if (err) {
                 res.send({
                     "message": "Internal Database Error Getting All Dances under a Show",
                     "data": {}
@@ -442,12 +378,12 @@ app.get('/node_get_all_dances_by_show', function (req, res) {
 app.get('/node_get_all_cues_by_dance', function (req, res) {
 
     // NEEDED: the Dance ID
-    const dance_id = req.body.dance_id;
+    const dance_id = req.query.dance_id;
 
     Cue.find(
-        { parent_dance: dance_id },
+        { parent_dance: {$eq:dance_id} },
         function (err, data) {
-            if (err || data.length === 0) {
+            if (err) {
                 res.send({
                     "message": "Internal Database Error Getting All Cues under a Dance",
                     "data": {}
