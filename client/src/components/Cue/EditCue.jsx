@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, Link, useHistory } from 'react-router-dom';
 import $ from "jquery";
-import LightVisualizer from "./LightVsializer";
+import LightVisualizer from "./LightVisualizer";
 
 function EditCue() {
 	const [error, setError] = useState('');
