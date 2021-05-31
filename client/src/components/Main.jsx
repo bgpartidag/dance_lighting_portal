@@ -7,6 +7,7 @@ import Footer from "./Footer";
 import EditShow from "./Show/EditShow";
 import EditDance from "./Dance/EditDance";
 import EditCue from "./Cue/EditCue";
+import Show from "./Show/Show";
 
 function Main() {
 	return (
@@ -20,7 +21,7 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<EditDance />
+				<Show />
 				{/* <EditCue /> */}
 				{/* <EditShow /> */}
 			</div>
