@@ -47,7 +47,7 @@ function Header(props) {
 					<div className="navbar-nav">
 						<Link className="navbar-brand" to="/">
 							<img
-								src="/docs/5.0/assets/brand/bootstrap-logo.svg"
+								src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FClark_University&psig=AOvVaw0mmGREar8EEeicwzjuaioz&ust=1622505934128000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjfiuHP8vACFQAAAAAdAAAAABAI"
 								alt=""
 								width="30"
 								height="24"

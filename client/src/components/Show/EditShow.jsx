@@ -44,20 +44,22 @@ function EditShow() {
 			<div className="row">
 				<h5 id="team_name"></h5>
 			</div>
+
 			<div className="row" id="add_form">
 				<form onSubmit={saveShow} method="POST">
 					<div className="row" id="header">
 						<div className="col-md-3 name">
-							<h5>Info:</h5>
+							<h5>Info</h5>
 						</div>
 						<div className="col-md-3 show">
-							<h5>Show:</h5>
+							<h5>Show</h5>
 						</div>
 						<div className="col-md-3 tech">
-							<h5>Tech:</h5>
+							<h5>Tech</h5>
 						</div>
 						<div className="col-md-3 det"></div>
 					</div>
+					
 					<div className="row inputs">
 						<div className="col-md-9 boxes">
 							<div className="row" id="form1">
@@ -230,6 +232,7 @@ function EditShow() {
 							></textarea>
 						</div>
 					</div>
+
 					<div className="row text-center">
 						<p id="error_message" style={{color: "red"}}>{error}</p>
 					</div>
