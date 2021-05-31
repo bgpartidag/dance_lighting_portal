@@ -7,6 +7,9 @@ import Footer from "./Footer";
 import EditShow from "./Show/EditShow";
 import EditDance from "./Dance/EditDance";
 import EditCue from "./Cue/EditCue";
+import Login from "./User/Login"
+import Register from "./User/Register"
+import TechSignup from "./User/TechSignup"
 
 function Main() {
 	return (
@@ -20,7 +23,10 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<EditDance />
+				<TechSignup/>
+				{/* <Register/> */}
+				{/* <Login/> */}
+				{/* <EditDance /> */}
 				{/* <EditCue /> */}
 				{/* <EditShow /> */}
 			</div>
