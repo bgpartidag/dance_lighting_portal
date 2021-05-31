@@ -53,22 +53,23 @@ function EditShow() {
 			<div className="row" id="add_form">
 				<form onSubmit={saveShow} method="POST">
 					<div className="row" id="header">
-						<div className="col-md-3 name">
+						<div className="col-md-4 name">
 							<h5>Info</h5>
 						</div>
-						<div className="col-md-3 show">
+						<div className="col-md-4 show">
 							<h5>Show</h5>
 						</div>
-						<div className="col-md-3 tech">
+						<div className="col-md-4 tech">
 							<h5>Tech</h5>
 						</div>
-						<div className="col-md-3 det"></div>
 					</div>
-					
+
 					<div className="row inputs">
-						<div className="col-md-9 boxes">
-							<div className="row" id="form1">
+
+							{/* Card 1: Contact info */}
 								<div className="col-md-4 name">
+								<div className="card">
+									<div className='card-body'>
 									<label for="show_name" className="form-label">
 										Show Name:
 									</label>
@@ -79,34 +80,6 @@ function EditShow() {
 										id="show_name"
 										className="form-control"
 									/>
-								</div>
-								<div className="col-md-4 show">
-									<label for="show_start" className="form-label">
-										Start Date:
-									</label>
-									<input
-										type="date"
-										id="show_start"
-										name="show_start"
-										value=""
-										className="form-control"
-									/>
-								</div>
-								<div className="col-md-4 tech">
-									<label for="tech_start" className="form-label">
-										Start Date:
-									</label>
-									<input
-										type="date"
-										id="tech_start"
-										name="tech_start"
-										value=""
-										className="form-control"
-									/>
-								</div>
-							</div>
-							<div className="row" id="form2">
-								<div className="col-md-4 name">
 									<label for="contact_name" className="form-label">
 										Contact Name:
 									</label>
@@ -117,34 +90,6 @@ function EditShow() {
 										id="contact_name"
 										className="form-control"
 									/>
-								</div>
-								<div className="col-md-4 show">
-									<label for="show_end" className="form-label">
-										End Date:
-									</label>
-									<input
-										type="date"
-										id="show_end"
-										name="show_end"
-										value=""
-										className="form-control"
-									/>
-								</div>
-								<div className="col-md-4 tech">
-									<label for="tech_end" className="form-label">
-										End Date:
-									</label>
-									<input
-										type="date"
-										id="tech_end"
-										name="tech_end"
-										value=""
-										className="form-control"
-									/>
-								</div>
-							</div>
-							<div className="row" id="form3">
-								<div className="col-md-4 name">
 									<label for="contact_name" className="form-label">
 										Email:
 									</label>
@@ -155,36 +100,6 @@ function EditShow() {
 										id="contact_email"
 										className="form-control"
 									/>
-								</div>
-								<div className="col-md-4 show">
-									<label for="show_start_time" className="form-label">
-										Start Time:
-									</label>
-									<input
-										type="time"
-										id="show_start_time"
-										name="show_start_time"
-										min="09:00"
-										max="24:00"
-										className="form-control"
-									/>
-								</div>
-								<div className="col-md-4 tech">
-									<label for="tech_start_time" className="form-label">
-										Start Time:
-									</label>
-									<input
-										type="time"
-										id="tech_start_time"
-										name="tech_start_time"
-										min="09:00"
-										max="24:00"
-										className="form-control"
-									/>
-								</div>
-							</div>
-							<div className="row" id="form4">
-								<div className="col-md-4 name">
 									<label for="contact_phone" className="form-label">
 										Phone:
 									</label>
@@ -196,7 +111,45 @@ function EditShow() {
 										className="form-control"
 									/>
 								</div>
+								</div>
+								</div>
+								{/* End of card 1 */}
+
+								{/* Card 2: Show Info */}
 								<div className="col-md-4 show">
+									<div className="card">
+									<div className='card-body'>
+									<label for="show_start" className="form-label">
+										Start Date:
+									</label>
+									<input
+										type="date"
+										id="show_start"
+										name="show_start"
+										value=""
+										className="form-control"
+									/>
+									<label for="show_start_time" className="form-label">
+										Start Time:
+									</label>
+									<input
+										type="time"
+										id="show_start_time"
+										name="show_start_time"
+										min="09:00"
+										max="24:00"
+										className="form-control"
+									/>
+									<label for="show_end" className="form-label">
+										End Date:
+									</label>
+									<input
+										type="date"
+										id="show_end"
+										name="show_end"
+										value=""
+										className="form-control"
+									/>
 									<label for="show_end_time" className="form-label">
 										End Time:
 									</label>
@@ -209,7 +162,45 @@ function EditShow() {
 										className="form-control"
 									/>
 								</div>
+								</div>
+								</div>
+								{/* End of card 2 */}
+
+								{/* Card 3: Tech info */}
 								<div className="col-md-4 tech">
+									<div className='card'>
+									<div className='card-body'>
+									<label for="tech_start" className="form-label">
+										Start Date:
+									</label>
+									<input
+										type="date"
+										id="tech_start"
+										name="tech_start"
+										value=""
+										className="form-control"
+									/>
+									<label for="tech_start_time" className="form-label">
+										Start Time:
+									</label>
+									<input
+										type="time"
+										id="tech_start_time"
+										name="tech_start_time"
+										min="09:00"
+										max="24:00"
+										className="form-control"
+									/>
+									<label for="tech_end" className="form-label">
+										End Date:
+									</label>
+									<input
+										type="date"
+										id="tech_end"
+										name="tech_end"
+										value=""
+										className="form-control"
+									/> 
 									<label for="tech_end_time" className="form-label">
 										End Time:
 									</label>
@@ -222,22 +213,31 @@ function EditShow() {
 										className="form-control"
 									/>
 								</div>
+								{/* End of card 3 */}
+								</div>
+								</div>
 							</div>
-						</div>
-						<div className="col-md-3 details">
-							<label for="show_detail" className="form-label">
-								Details:
-							</label>
+
+						{/* The comment section */}
+						<br/>
+						<div className='row'>
+						<div className='col-md-3'></div>
+						<div className="col-md-6 details">
+							<h5 style={{textAlign:'center'}}>
+								Details
+							</h5>
 							<textarea
 								type="text"
 								id="show_detail"
 								name="show_detail"
 								className="form-control"
-								style={{ height: "85%", textAlign: "left" }}
+								style={{ height: "85%", textAlign: "left"}}
 							></textarea>
 						</div>
-					</div>
+						</div>
 
+
+					<br/>
 					<div className="row text-center">
 						<p id="error_message" style={{color: "red"}}>{error}</p>
 					</div>
