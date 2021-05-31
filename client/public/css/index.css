@@ -13,6 +13,10 @@
 	border-color: black;
 }
 
+.light_visualizer {
+	color: white;
+	background-color: black;
+}
 
 nav {
 	padding: 10px;

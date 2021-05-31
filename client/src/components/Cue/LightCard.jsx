@@ -49,9 +49,10 @@ function LightCard(props) {
 					<input
 						type="text"
 						name="color"
+						placeholder='Color'
 						id={ID + "_color"}
 						className="form-control"
-						style={{ textAlign: "center" }}
+						style={{ textAlign: "left" }}
 						defaultValue={light.color}
 					/>
 				</div>

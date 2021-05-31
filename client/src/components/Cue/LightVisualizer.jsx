@@ -73,6 +73,7 @@ function LightVisualizer(props) {
 											ID="left_flood"
 											cue={cue}
 											hasColor="true"
+											placeholder='Color'
 										/>
 									</div>
 									<div className="col-lg-6">
