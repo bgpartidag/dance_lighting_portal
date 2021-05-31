@@ -3,74 +3,98 @@ import React from "react";
 function LightCard(props) {
 	const name = props.name;
 	const hasColor = props.hasColor;
-
+	const cue = props.cue;
+	const ID = props.ID;
+	// get the current light if it has a value
+	const findLight = cue.lights.find((l) => l.light_name === ID);
+	// default light
+	let light = {
+		brightness: 0,
+		color: "",
+	};
+	// replace teh default light with result of find
+	if (findLight) {
+		light = findLight;
+		console.log(light);
+	}
+	// flood light case
 	if (hasColor === "true") {
+		// get cue by name
+
 		return (
 			<div class="card">
 				<div class="card-body">
 					<input
 						type="checkbox"
-						className="btn-check"
-						id={name + "-button"}
+						className="btn-check light_checks"
+						id={ID}
+						name={ID}
 						autocomplete="off"
 					/>
 					<label
-						className="btn btn-outline-primary form-control"
-						for={name + "-button"}
+						className="btn btn-outline-dark form-control"
+						for={ID}
 					>
 						{name}
 					</label>
 					<br />
-					<label for="brightness" className="form-label">
-						Brightness:
+					<p style={{ textAlign: "center" }}>Brightness:</p>
+					<div className="row">
 						<input
-							id="brightness"
-							classname="custom-range"
+							id={ID + "_brightness"}
+							name={ID + "_brightness"}
+							classname="form-control-range"
 							type="range"
 							min="0"
 							max="100"
+							style={{ alignItems: "center" }}
+							defaultValue={light.brightness}
 						/>
-					</label>
-					<label for="color" className="form-label">
-						Color:
-						<input
-							type="text"
-							name="color"
-							value=""
-							id="color"
-							className="form-control"
-						/>
-					</label>
+					</div>
+					<p style={{ textAlign: "center" }}>Color:</p>
+					<input
+						type="text"
+						name={ID + "_color"}
+						placeholder="Color"
+						id={ID + "_color"}
+						className="form-control"
+						defaultValue={light.color}
+					/>
 				</div>
 			</div>
 		);
-	} else {
+	}
+	// spot light case
+	else {
 		return (
 			<div class="card">
 				<div class="card-body">
 					<input
 						type="checkbox"
-						className="btn-check"
-						id={name + "-button"}
+						className="btn-check light_checks"
+						id={ID}
+						name={ID}
 						autocomplete="off"
 					/>
 					<label
-						className="btn btn-outline-primary form-control"
-						for={name + "-button"}
+						className="btn btn-outline-dark form-control"
+						for={ID}
 					>
 						{name}
 					</label>
 					<br />
-					<label for="brightness" className="form-label">
-						Brightness:
+					<div className="row">
+						<p style={{ textAlign: "center" }}>Brightness:</p>
 						<input
-							id="brightness"
-							classname="custom-range"
+							id={ID + "_brightness"}
+							name={ID + "_brightness"}
+							classname="form-control-range"
 							type="range"
 							min="0"
 							max="100"
+							defaultValue={light.brightness}
 						/>
-					</label>
+					</div>
 				</div>
 			</div>
 		);

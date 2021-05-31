@@ -7,9 +7,9 @@ import Footer from "./Footer";
 import EditShow from "./Show/EditShow";
 import EditDance from "./Dance/EditDance";
 import EditCue from "./Cue/EditCue";
-import Login from "./User/Login"
-import Register from "./User/Register"
-import TechSignup from "./User/TechSignup"
+import Show from "./Show/Show";
+import LightingInfo from "./Show/LightingInfo";
+import DisplayShowInfo from "./Show/DisplayShowInfo";
 
 function Main() {
 	return (
@@ -23,12 +23,32 @@ function Main() {
 					marginRight: "5%",
 				}}
 			>
-				<TechSignup/>
-				{/* <Register/> */}
-				{/* <Login/> */}
-				{/* <EditDance /> */}
-				{/* <EditCue /> */}
-				{/* <EditShow /> */}
+				{/* Setting paths from one page to the next */}
+				<Switch>
+					{/* <Route exact path='/'><Home/></Route> */}
+					<Route path="/edit_show">
+						<EditShow />
+					</Route>
+					<Route path="/edit_dance">
+						<EditDance />
+					</Route>
+					<Route path="/edit_cue">
+						<EditCue />
+					</Route>
+					<Route path="/show">
+						<Show />
+					</Route>
+					{/* <Route path='/show_breakdown'><ShowBreakdown/></Route> */}
+					<Route path="/lighting_info">
+						<LightingInfo />
+					</Route>
+					<Route path="/display-show-info">
+						<DisplayShowInfo />
+					</Route>
+					{/* <Route path='/tech_registration'><TechRegistration/></Route> */}
+					{/* <Route path='/login'><Login setCurrentUser={setCurrentUser}/></Route> */}
+					{/* <Route path='/register'><Register setCurrentUser={setCurrentUser}/></Route> */}
+				</Switch>
 			</div>
 			<Footer />
 		</Router>

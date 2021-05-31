@@ -1,47 +1,83 @@
 import React, { useState } from "react";
-import $ from "jquery";
 import { useLocation, Link, useHistory } from "react-router-dom";
-import LightVisualizer from "./LightVsializer";
+import $ from "jquery";
+import LightVisualizer from "./LightVisualizer";
 
-function EditCue() {
-	/*
-	const location = useLocation();
-	const cue = location.state.cue;
+function EditCue(props) {
 	const [error, setError] = useState("");
+
+	const cue = {
+		parent_dance: "60b4448e2f29a92ef43ee39b",
+		start_time: "1:35",
+		end_time: "2:40",
+		cue_notes: "Notes for cue",
+		lights: [
+			{
+				light_name: "left_flood",
+				color: "green",
+				brightness: 85,
+			},
+		],
+	};
+
+	// new cue, create an empty cue
+	if (cue === null) {
+		cue = {
+			parent_dance: "60b4448e2f29a92ef43ee39b",
+			start_time: "",
+			end_time: "",
+			cue_notes: "",
+			lights: [],
+		};
+	}
 
 	const history = useHistory();
 	const saveCue = (event) => {
-		
 		event.preventDefault();
 		setError("");
 		const form = event.target.elements;
-		console.log(form);
-		// movie.title=form.title.value;
-		// movie.rating=form.rating.value;
-		// movie.poster_path=form.poster_path.value;
-		// movie.release_date=form.release_date.value;
-		// movie.overview=form.overview.value;
-		// if (movie.rating>10){
-		//     setError("Rating can not be greater than 10");
-		// }else{
-		$.post("/node_add_cue", { cue: cue, dance_id: null, order: null }).done(
-			(data) => {
-				if (data.message === "success") {
-					//navigate
-					history.push("/", { cue: cue });
-				} else {
-					setError(data.message);
-				}
-				
-			}
-			
-		);
-		
-		//}
-	};
-	*/
-	const saveCue = (event) => {};
 
+		let lightList = []
+
+		Array.from(document.querySelectorAll(".light_checks")).forEach((checkbox) => {
+			//console.log(document.getElementById(checkbox.id));
+			//console.log(document.getElementById(checkbox.id).checked);
+			if (document.getElementById(checkbox.id).checked) {
+				const light_id = document.getElementById(checkbox.id).id;
+				const brightness_id = light_id + "_brightness";
+				const color_id = light_id + "_color";
+				const brightness_value = document.getElementById(brightness_id).value;
+				let color_value = "null";
+				if (document.getElementById(color_id)) {
+					color_value = document.getElementById(color_id).value;
+				}
+				lightList.push({
+					light_name: light_id,
+					color: color_value,
+					brightness: brightness_value
+				})
+			}
+		});
+		//console.log(lightList);
+
+		cue.start_time = form.cue_start.value;
+		cue.end_time = form.cue_end.value;
+		cue.cue_notes = form.light_detail.value;
+		cue.lights = lightList;
+
+		$.post("/node_add_cue", { cue: cue }).done((data) => {
+			if (data.message === "success") {
+				//navigate
+				console.log(data.cue._id);
+				//history.push('/edit_cue', { cue: cue, parent_id: "hello" });
+				setError("navigation is weird");
+			} else {
+				setError(data.message.message);
+			}
+		});
+	};
+
+	// if this is a new cue, set values to empty
 	return (
 		<section id="edit_que">
 			<div className="container">
@@ -50,7 +86,7 @@ function EditCue() {
 				</div>
 				<form id="edit_form" onSubmit={saveCue} method="POST">
 					<div className="row">
-						<div className="col-2">
+						<div className="col-md-2">
 							<div>
 								<h5>Cue Time:</h5>
 							</div>
@@ -60,9 +96,10 @@ function EditCue() {
 									<input
 										type="text"
 										name="cue_start"
-										value=""
+										defaultValue={cue.start_time}
 										id="cue_start"
 										className="form-control"
+										placeholder="Time"
 									/>
 								</label>
 							</div>
@@ -72,41 +109,44 @@ function EditCue() {
 									<input
 										type="text"
 										name="cue_end"
-										value=""
+										defaultValue={cue.end_time}
 										id="cue_end"
 										className="form-control"
+										placeholder="Time"
 									/>
 								</label>
 							</div>
 						</div>
-						<div className="col-8">
-							<LightVisualizer />
+						<div className="col-md-8">
+							<LightVisualizer cue={cue} />
 						</div>
-						<div className="col-2">
+						<div className="col-md-2">
 							<h5>Cue Details:</h5>
-							<label for="light_detail" className="form-label">
-								Details:
-								<textarea
-									type="text"
-									id="light_detail"
-									name="light_detail"
-									className="form-control"
-									style={{ height: "100%", textAlign: "left" }}
-								></textarea>
-							</label>
+							<textarea
+								type="text"
+								id="light_detail"
+								name="light_detail"
+								defaultValue={cue.cue_notes}
+								className="form-control"
+								placeholder="Details..."
+								style={{ height: "20%", textAlign: "left" }}
+							></textarea>
 						</div>
 					</div>
-					<div className="row">
-						<div className="row button">
-							<div className="col-12 text-center button_col">
-								<input
-									type="button"
-									className="btn btn-dark"
-									value="Save Cue"
-									onclick="saveCue()"
-									style={{ width: "20%" }}
-								/>
-							</div>
+					<div className="row text-center">
+						<p id="error_message" style={{ color: "red" }}>
+							{error}
+						</p>
+					</div>
+					<div className="row button">
+						<div className="col-12 text-center button_col">
+							<button
+								type="submit"
+								className="btn btn-primary"
+								style={{ width: "20%" }}
+							>
+								Save Cue
+							</button>
 						</div>
 					</div>
 				</form>

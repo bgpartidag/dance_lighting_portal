@@ -19,7 +19,7 @@ function UserLogin(props) {
 	if (currentUser !== null) {
 		return (
 			<div className="navbar-nav navbar-right">
-				<div className="navbar-brand mb-0">Hello, {currentUser.fullname}</div>
+				<div className="navbar-brand mb-0">Hello, {currentUser.username}</div>
 				<a className="nav-link active" onClick={Logout}>
 					Log out
 				</a>
@@ -47,16 +47,13 @@ function Header(props) {
 					<div className="navbar-nav">
 						<Link className="navbar-brand" to="/">
 							<img
-								src="/docs/5.0/assets/brand/bootstrap-logo.svg"
+								src="/images/clark.png"
 								alt=""
-								width="30"
-								height="24"
+								width="50"
+								height="50"
 								class="d-inline-block align-text-top"
 							/>
 							CU Dance and Lighting Portal
-						</Link>
-						<Link className="nav-link" to="/">
-							Home
 						</Link>
 					</div>
 					{/*... extends dictionary with props dict*/}
