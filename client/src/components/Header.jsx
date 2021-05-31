@@ -47,10 +47,10 @@ function Header(props) {
 					<div className="navbar-nav">
 						<Link className="navbar-brand" to="/">
 							<img
-								src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FClark_University&psig=AOvVaw0mmGREar8EEeicwzjuaioz&ust=1622505934128000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIjfiuHP8vACFQAAAAAdAAAAABAI"
+								src="/images/clark.png"
 								alt=""
-								width="30"
-								height="24"
+								width="50"
+								height="50"
 								class="d-inline-block align-text-top"
 							/>
 							CU Dance and Lighting Portal
