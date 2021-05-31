@@ -21,7 +21,7 @@ function Show(props) {
 	};
 	const dances = [
 		{
-			parent_show: "show1",
+			parent_show: "show1_id",
 			dance_name: "dance1",
 			choreographer: "Nicholas",
 			length: 120,

@@ -22,13 +22,14 @@ function LightCard(props) {
 				<div class="card-body">
 					<input
 						type="checkbox"
-						className="btn-check"
-						id={ID + "_button"}
+						className="btn-check light_checks"
+						id={ID}
+						name={ID}
 						autocomplete="off"
 					/>
 					<label
 						className="btn btn-outline-dark form-control"
-						for={ID + "_button"}
+						for={ID}
 					>
 						{name}
 					</label>
@@ -37,6 +38,7 @@ function LightCard(props) {
 					<div className="row">
 						<input
 							id={ID + "_brightness"}
+							name={ID + "_brightness"}
 							classname="custom-range"
 							type="range"
 							min="0"
@@ -48,7 +50,7 @@ function LightCard(props) {
 					<p style={{ textAlign: "center" }}>Color:</p>
 					<input
 						type="text"
-						name="color"
+						name={ID + "_color"}
 						id={ID + "_color"}
 						className="form-control"
 						style={{ textAlign: "center" }}
@@ -63,13 +65,14 @@ function LightCard(props) {
 				<div class="card-body">
 					<input
 						type="checkbox"
-						className="btn-check"
-						id={ID + "_button"}
+						className="btn-check light_checks"
+						id={ID}
+						name={ID}
 						autocomplete="off"
 					/>
 					<label
 						className="btn btn-outline-dark form-control"
-						for={ID + "_button"}
+						for={ID}
 					>
 						{name}
 					</label>
@@ -78,6 +81,7 @@ function LightCard(props) {
 						<p style={{ textAlign: "center" }}>Brightness:</p>
 						<input
 							id={ID + "_brightness"}
+							name={ID + "_brightness"}
 							classname="custom-range"
 							type="range"
 							min="0"
