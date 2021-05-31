@@ -15,7 +15,7 @@
 }
 
 .btn {
-	background-color: black;
+	background-color: rgb(150, 146, 146);
 	border-color: black;
 }
 
@@ -37,4 +37,11 @@ h1 {
 }
 h5 {
 	text-align: center;
+}
+
+/*
+Google fonts
+*/
+#root{
+	font-family: 'Playfair Display', serif;
 }
