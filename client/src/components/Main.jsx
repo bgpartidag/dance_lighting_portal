@@ -8,6 +8,8 @@ import EditShow from "./Show/EditShow";
 import EditDance from "./Dance/EditDance";
 import EditCue from "./Cue/EditCue";
 import Show from "./Show/Show";
+import LightingInfo from "./Show/LightingInfo";
+import DisplayShowInfo from "./Show/DisplayShowInfo";
 
 function Main() {
 	return (
@@ -37,7 +39,12 @@ function Main() {
 						<Show />
 					</Route>
 					{/* <Route path='/show_breakdown'><ShowBreakdown/></Route> */}
-					{/* <Route path='/lighting_info'><LightingInfo/></Route> */}
+					<Route path="/lighting_info">
+						<LightingInfo />
+					</Route>
+					<Route path="/display-show-info">
+						<DisplayShowInfo />
+					</Route>
 					{/* <Route path='/tech_registration'><TechRegistration/></Route> */}
 					{/* <Route path='/login'><Login setCurrentUser={setCurrentUser}/></Route> */}
 					{/* <Route path='/register'><Register setCurrentUser={setCurrentUser}/></Route> */}

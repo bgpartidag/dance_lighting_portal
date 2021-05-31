@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import DanceItem from "../Dance/DanceItem";
 
-function Show(props) {
+function LightingInfo(props) {
 	const show = {
 		team_username: "team1",
 		show_name: "show1",
@@ -29,18 +29,21 @@ function Show(props) {
 			status: "Complete",
 		},
 	];
+
 	return (
 		<section id="edit_que">
 			<div className="container">
 				<div className="row">
-					<h1>{show.show_name}</h1>
+					<h1>{show.show_name + " Lighting Info"}</h1>
 				</div>
 				<div className="row">
 					<div className="col-md-3">
 						<div className="card">
 							<div className="card-body">
-								<h5 style={{ textAlign: "left" }}>Group:</h5>
-								<p>{show.team_username}</p>
+								<h5 style={{ textAlign: "left" }}>Show Director:</h5>
+								<p>Name: {show.contact_name}</p>
+								<p>Email: {show.contact_email}</p>
+
 								<br />
 								<h5 style={{ textAlign: "left" }}>Show Dates:</h5>
 								<p>
@@ -77,27 +80,21 @@ function Show(props) {
 								</ul>
 							</div>
 						</div>
-						<Link className="btn btn-primary" to={{ pathname: "/edit_dance" }}>
-							Add Dance
+						<br />
+						<Link
+							className="btn btn-primary"
+							to={{ pathname: "/display-show-info" }}
+						>
+							Print Info
 						</Link>
 					</div>
 					<div className="col-md-2">
-						<form>
-							<label for="dance_detail" className="form-label">
-								Details:
-								<textarea
-									type="text"
-									id="dance_detail"
-									name="dance_detail"
-									className="form-control"
-									style={{ height: "100%", textAlign: "left" }}
-									value={show.show_notes}
-								></textarea>
-							</label>
-							<button type="submit" className="btn btn-primary">
-								Save Details
-							</button>
-						</form>
+						<div className="card">
+							<h5>Details:</h5>
+							<div className="card-body">
+								<p>{show.show_notes}</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -105,4 +102,4 @@ function Show(props) {
 	);
 }
 
-export default Show;
+export default LightingInfo;

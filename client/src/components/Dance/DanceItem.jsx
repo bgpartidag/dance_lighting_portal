@@ -22,13 +22,13 @@ function DanceItem(props) {
 			<div className="col-lg-4">
 				<Link
 					className="dance_name btn-primary"
-					// to={{
-					// 	pathname: "/edit_dance",
-					// 	state: {
-					// 		dance: dance,
-					// 		show_id: "A show id i guess",
-					// 	},
-					// }}
+					to={{
+						pathname: "/edit_dance",
+						state: {
+							dance: dance,
+							show_id: "A show id i guess",
+						},
+					}}
 				>
 					<h5 style={{ color: "blue", textAlign: "left" }}>
 						{dance.dance_name}
