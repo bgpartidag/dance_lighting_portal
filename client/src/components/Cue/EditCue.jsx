@@ -33,25 +33,24 @@ function EditCue(props) {
 		event.preventDefault();
 		setError("");
 		const form = event.target.elements;
-		const saveCue = {
-			parent_dance: "TBD",
+		const cue = {
+			parent_dance: "60b4448e2f29a92ef43ee39b",
 			start_time: form.cue_start.value,
 			end_time: form.cue_end.value,
-			details: form.light_detail.value,
+			cue_notes: form.light_detail.value,
 		};
-		console.log(saveCue);
+		console.log(cue);
 
-		// const dance_id = 1;
-		// const order = 1;
-
-		// $.post("/node_add_cue", {cue:cue, dance_id: dance_id, order:order}).done((data)=>{
-		//     if(data.message === 'success'){
-		//         //navigate
-		//         history.push('/PATHNAME TBD')
-		//     }else{
-		//         setError(data.message);
-		//     }
-		// });
+		$.post("/node_add_cue", { cue: cue }).done((data) => {
+			if (data.message === "success") {
+				//navigate
+				//history.push('/PATHNAME TBD')
+				console.log(data.cue._id);
+				setError("navigation not in place");
+			} else {
+				setError(data.message.message);
+			}
+		});
 	};
 
 	// if this is a new cue, set values to empty
@@ -76,6 +75,7 @@ function EditCue(props) {
 										defaultValue={cue.start_time}
 										id="cue_start"
 										className="form-control"
+										placeholder="Time"
 									/>
 								</label>
 							</div>
@@ -88,6 +88,7 @@ function EditCue(props) {
 										defaultValue={cue.end_time}
 										id="cue_end"
 										className="form-control"
+										placeholder="Time"
 									/>
 								</label>
 							</div>
@@ -103,6 +104,7 @@ function EditCue(props) {
 								name="light_detail"
 								defaultValue={cue.cue_notes}
 								className="form-control"
+								placeholder="Details..."
 								style={{ height: "20%", textAlign: "left" }}
 							></textarea>
 						</div>

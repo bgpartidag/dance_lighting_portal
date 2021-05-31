@@ -19,7 +19,7 @@ function UserLogin(props) {
 	if (currentUser !== null) {
 		return (
 			<div className="navbar-nav navbar-right">
-				<div className="navbar-brand mb-0">Hello, {currentUser.fullname}</div>
+				<div className="navbar-brand mb-0">Hello, {currentUser.username}</div>
 				<a className="nav-link active" onClick={Logout}>
 					Log out
 				</a>

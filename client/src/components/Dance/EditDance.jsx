@@ -4,34 +4,50 @@ import { Link } from "react-router-dom";
 //import LightItem from "./LightItem";
 import CueList from "../Cue/CueList";
 
+function AddCueAbility() {
+	const randomBoolean = false;
+
+	if (randomBoolean) {
+		return (
+			<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
+				pathname: "/PATHNAME TBD", state: { dance_name: "TBD" }
+			}}>Add Cue</Link>
+		)
+	}else{
+		return(
+			<p>Dance needs to be saved before adding cues.</p>
+		)
+	}
+}
+
 function EditDance() {
 	const [error, setError] = useState('');
 
 	const saveDance = (event) => {
 		event.preventDefault();
-		setError('A test run');
+		setError('');
 		const form = event.target.elements;
 		const dance = {
-			parent_show: "TBD",
+			parent_show: "60b43c0b4ef9e842e455dc76",
 			dance_name: form.dance_name.value,
+			dance_length: "00:00",
 			choreographer: form.choreographer_name.value,
-			comments: form.dance_info.value
+			dance_notes: form.dance_info.value,
+			status: "incomplete"
 		}
 		console.log(dance);
 
-		// const show_id = 0;
-		// const order = 0;
 
-		// $.post('/node_add_dance', {dance: dance, show_id: show_id, order: order}).done((data)=>{
-		// 	if(data.message === 'success'){
-
-		// 		//navigate to somewhere
-		// 		history.push('/PATHNAME TBD')
-
-		// 	}else{
-		// 		setError(data.message);
-		// 	}
-		// });
+		$.post('/node_add_dance', {dance: dance}).done((data)=>{
+			if(data.message === 'success'){
+				//navigate to somewhere
+				//history.push('/PATHNAME TBD')b
+				console.log(data.dance._id);
+				setError('navigation not in place');
+			}else{
+				setError(data.message.message);
+			}
+		});
 	}
 
 	return (
@@ -49,9 +65,9 @@ function EditDance() {
 									<input
 										type="text"
 										name="dance_name"
-										value=""
 										id="dance_name"
 										className="form-control"
+										placeholder='Dance'
 									/>
 								</label>
 							</div>
@@ -62,9 +78,9 @@ function EditDance() {
 									<input
 										type="text"
 										name="choreographer_name"
-										value=""
 										id="choreographer_name"
 										className="form-control"
+										placeholder='Choreographer'
 									/>
 								</label>
 							</div>
@@ -76,6 +92,7 @@ function EditDance() {
 									id="dance_info"
 									name="dance_info"
 									className="form-control"
+									placeholder='Dance info...'
 									style={{ height: "100%", textAlign: "left" }}
 								></textarea>
 							</label>
@@ -86,16 +103,14 @@ function EditDance() {
 								<CueList />
 								<div className="row">
 									<div className="col-12 text-left button_col">
-										<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
-											pathname: "/PATHNAME TBD", state: { dance_name: "TBD" }
-										}}>Add Cue</Link>
+										<AddCueAbility/>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className="row text-center">
-						<p id="error_message" style={{color: "red"}}>{error}</p>
+						<p id="error_message" style={{ color: "red" }}>{error}</p>
 					</div>
 					<div className="row button">
 						<div className="col-12 text-center button_col">
