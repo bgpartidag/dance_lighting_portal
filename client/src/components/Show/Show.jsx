@@ -35,7 +35,7 @@ function Show() {
 		dance_notes: '',
 		status: "incomplete"
 	};
-
+	
 	return (
 		<section id="edit_que">
 			<div className="container">
