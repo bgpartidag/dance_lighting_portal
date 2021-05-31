@@ -87,7 +87,7 @@ function EditDance() {
 								<div className="row">
 									<div className="col-12 text-left button_col">
 										<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
-											pathname: "/edit_cue PATHNAME TBD", state: { dance_name: "TBD" }
+											pathname: "/PATHNAME TBD", state: { dance_name: "TBD" }
 										}}>Add Cue</Link>
 									</div>
 								</div>
