@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import $ from "jquery";
-import {useLocation, Link, useHistory} from 'react-router-dom';
+import { useLocation, Link, useHistory } from 'react-router-dom';
 
 function EditShow() {
 	const location = useLocation();
@@ -8,72 +8,54 @@ function EditShow() {
 	const history = useHistory();
 	let show = {
 		team_username: "TBD",
-		show_name: "",
-		contact_name: "",
-		contact_email: "",
-		contact_phone: "",
-		show_start_date: "",
-		show_end_date: "",
-		show_start_time: "",
-		show_end_time: "",
-		tech_start_date: "",
-		tech_end_date: "",
-		tech_start_time:"",
-		tech_end_time: "",
-		show_notes: "",
+		show_name: "TEMPLATE",
+		contact_name: "TEMPLATE_CONTACT",
+		contact_email: "TEMPLATE@EMAIL.COM",
+		contact_phone: "123-456-7890",
+		show_start_date: "1111-11-11",
+		show_end_date: "2222-12-22",
+		show_start_time: "09:09",
+		show_end_time: "08:08",
+		tech_start_date: "3333-03-31",
+		tech_end_date: "4444-04-04",
+		tech_start_time: "07:07",
+		tech_end_time: "06:06",
+		show_notes: "NEED TO CREATE OR ACCESS SHOW",
 	};
-	// let show = {
-	// 	team_username: "TBD",
-	// 	show_name: "TEMPLATE",
-	// 	contact_name: "TEMPLATE_CONTACT",
-	// 	contact_email: "TEMPLATE@EMAIL.COM",
-	// 	contact_phone: "123-456-7890",
-	// 	show_start_date: "1111-11-11",
-	// 	show_end_date: "2222-12-22",
-	// 	show_start_time: "09:09",
-	// 	show_end_time: "08:08",
-	// 	tech_start_date: "3333-03-31",
-	// 	tech_end_date: "4444-04-04",
-	// 	tech_start_time:"07:07",
-	// 	tech_end_time: "06:06",
-	// 	show_notes: "NEED TO CREATE OR ACCESS SHOW",
-	// };
 	if (location.state !== undefined) {
 		show = location.state.show;
 	}
+	
 	const saveShow = (event) => {
 		event.preventDefault();
 		setError('');
-        const form = event.target.elements;
+		const form = event.target.elements;
 
-		const show = {
-			team_username: "TBD",
-			show_name: form.show_name.value,
-			contact_name: form.contact_name.value,
-			contact_email: form.contact_email.value,
-			contact_phone: form.contact_phone.value,
-			show_start_date: form.show_start.value,
-			show_end_date: form.show_end.value,
-			show_start_time: form.show_start_time.value,
-			show_end_time: form.show_end_time.value,
-			tech_start_date: form.tech_start.value,
-			tech_end_date: form.tech_end.value,
-			tech_start_time: form.tech_start_time.value,
-			tech_end_time: form.tech_end_time.value,
-			show_notes: form.show_detail.value,
-		};
+		show.show_name = form.show_name.value;
+		show.contact_name = form.contact_name.value;
+		show.contact_email = form.contact_email.value;
+		show.contact_phone = form.contact_phone.value;
+		show.show_start_date = form.show_start.value;
+		show.show_end_date = form.show_end.value;
+		show.show_start_time = form.show_start_time.value;
+		show.show_end_time = form.show_end_time.value;
+		show.tech_start_date = form.tech_start.value;
+		show.tech_end_date = form.tech_end.value;
+		show.tech_start_time = form.tech_start_time.value;
+		show.tech_end_time = form.tech_end_time.value;
+		show.show_notes = form.show_detail.value;
 
-		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone){
+		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone) {
 			setError('Only Details can be left empty. Please fill in everything else.');
-		}else{
+		} else {
 			console.log("saving show")
-			$.post('/node_add_show', {show:show}).done((data)=>{
-				if(data.message === 'success'){
-	
+			$.post('/node_add_show', { show: show }).done((data) => {
+				if (data.message === 'success') {
+
 					//navigate to show breakdown
 					//console.log(data.show._id);
-					history.push('/show', {show:show , show_id: data.show._id})
-				}else{
+					history.push('/show', { show: show, show_id: data.show._id })
+				} else {
 					setError(data.message.message);
 				}
 			});
@@ -105,10 +87,10 @@ function EditShow() {
 
 					<div className="row inputs">
 
-							{/* Card 1: Contact info */}
-								<div className="col-md-4 name">
-								<div className="card">
-									<div className='card-body'>
+						{/* Card 1: Contact info */}
+						<div className="col-md-4 name">
+							<div className="card">
+								<div className='card-body'>
 									<label for="show_name" className="form-label">
 										Show Name:
 									</label>
@@ -155,14 +137,14 @@ function EditShow() {
 										defaultValue={show.contact_phone}
 									/>
 								</div>
-								</div>
-								</div>
-								{/* End of card 1 */}
+							</div>
+						</div>
+						{/* End of card 1 */}
 
-								{/* Card 2: Show Info */}
-								<div className="col-md-4 show">
-									<div className="card">
-									<div className='card-body'>
+						{/* Card 2: Show Info */}
+						<div className="col-md-4 show">
+							<div className="card">
+								<div className='card-body'>
 									<label for="show_start" className="form-label">
 										Start Date:
 									</label>
@@ -208,14 +190,14 @@ function EditShow() {
 										defaultValue={show.show_end_time}
 									/>
 								</div>
-								</div>
-								</div>
-								{/* End of card 2 */}
+							</div>
+						</div>
+						{/* End of card 2 */}
 
-								{/* Card 3: Tech info */}
-								<div className="col-md-4 tech">
-									<div className='card'>
-									<div className='card-body'>
+						{/* Card 3: Tech info */}
+						<div className="col-md-4 tech">
+							<div className='card'>
+								<div className='card-body'>
 									<label for="tech_start" className="form-label">
 										Start Date:
 									</label>
@@ -247,7 +229,7 @@ function EditShow() {
 										name="tech_end"
 										className="form-control"
 										defaultValue={show.tech_end_date}
-									/> 
+									/>
 									<label for="tech_end_time" className="form-label">
 										End Time:
 									</label>
@@ -262,16 +244,16 @@ function EditShow() {
 									/>
 								</div>
 								{/* End of card 3 */}
-								</div>
-								</div>
 							</div>
+						</div>
+					</div>
 
-						{/* The comment section */}
-						<br/>
-						<div className='row'>
+					{/* The comment section */}
+					<br />
+					<div className='row'>
 						<div className='col-md-3'></div>
 						<div className="col-md-6 details">
-							<h5 style={{textAlign:'center'}}>
+							<h5 style={{ textAlign: 'center' }}>
 								Details
 							</h5>
 							<textarea
@@ -281,14 +263,14 @@ function EditShow() {
 								placeholder="Any Comments"
 								className="form-control"
 								placeholder="Details..."
-								style={{ height: "85%", textAlign: "left"}}
+								style={{ height: "85%", textAlign: "left" }}
 								defaultValue={show.show_notes}
 							></textarea>
 						</div>
-						</div>
+					</div>
 
 
-					<br/>
+					<br />
 					<div className="row text-center">
 						<p id="error_message" style={{ color: "red" }}>
 							{error}

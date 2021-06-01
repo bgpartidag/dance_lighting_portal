@@ -29,7 +29,7 @@ function Main() {
 			>
 				{/* Setting paths from one page to the next */}
 				<Switch>
-					{/* <Route exact path='/'><Home/></Route> */}
+					<Route exact path='/'><Home/></Route>
 					<Route path="/edit_show">
 						<EditShow />
 					</Route>

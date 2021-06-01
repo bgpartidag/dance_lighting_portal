@@ -73,7 +73,7 @@ function Show() {
 								<br />
 								<h5 style={{ textAlign: "left" }}>Show Dates:</h5>
 								<p>
-									Start: {show.show_end_date} at {show.show_start_time}
+									Start: {show.show_start_date} at {show.show_start_time}
 								</p>
 								<p>
 									End: {show.show_end_date} at {show.show_end_time}
@@ -84,7 +84,7 @@ function Show() {
 									Start: {show.tech_start_date} at at {show.tech_start_time}
 								</p>
 								<p>
-									End: {show.show_end_date} at {show.tech_end_time}
+									End: {show.tech_end_date} at {show.tech_end_time}
 								</p>
 							</div>
 						</div>
@@ -127,22 +127,18 @@ function Show() {
 						</Link>
 					</div>
 					<div className="col-md-2">
-						<form>
-							<label for="dance_detail" className="form-label">
-								Details:
-								<textarea
-									type="text"
-									id="dance_detail"
-									name="dance_detail"
-									className="form-control"
-									style={{ height: "100%", textAlign: "left" }}
-									value={show.show_notes}
-								></textarea>
-							</label>
-							<button type="submit" className="btn btn-primary">
-								Save Details
-							</button>
-						</form>
+						<div className="card">
+							<div className="card-body">
+								<h5 style={{ textAlign: "left" }}>Details:</h5>
+								<p id="dance_detail" style={{ height: "100%", textAlign: "left" }}>{show.show_notes}</p>
+							</div>
+						</div>
+						<Link type="button" className="btn btn-primary"
+							to={{
+								pathname: "/edit_show",
+								state: { show: show },
+							}}>Edit Show</Link>
+
 					</div>
 				</div>
 			</div>
