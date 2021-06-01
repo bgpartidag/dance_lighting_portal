@@ -12,17 +12,15 @@ function Home() {
 		//sorta like on document ready
 		if (!isLoaded) {
 			// contact nodejs to get movies
-			$.get("/node_get_all_shows").done(
-				(data) => {
-					if (data.message === "success") {
-						console.log(data.data);
-						setShows(data.data);
-						setIsLoaded(true);
-					} else {
-						setError(data.message);
-					}
+			$.get("/node_get_all_shows").done((data) => {
+				if (data.message === "success") {
+					console.log(data.data);
+					setShows(data.data);
+					setIsLoaded(true);
+				} else {
+					setError(data.message);
 				}
-			);
+			});
 		}
 	});
 
@@ -60,7 +58,7 @@ function Home() {
 
 				<div
 					className="card card-body text-center"
-				// style={{ position: "relative" }}
+					// style={{ position: "relative" }}
 				>
 					<div className="row">
 						<div className="col">
@@ -72,54 +70,54 @@ function Home() {
 								}}
 							>
 								<div className="row">
-									<select
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">Show</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">Team</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">Start Date</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">End Date</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">Start Time</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
-									// style={{ margin: "5%" }}
+										// style={{ margin: "5%" }}
 									>
 										<option value="">End Time</option>
-									</select>
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -141,20 +139,18 @@ function Home() {
 							{/* </div> */}
 						</div>
 					</div>
-				</div>
 
-				<div className="row text-center">
-					<p id="error_message" style={{ color: "red" }}>
-						{error}
-					</p>
-				</div>
-				<div className="row">
-					<div className="col">
-						<Link id="add-show" type="button" className="btn btn-primary"
-							style={{ marginLeft: "1168px" }} to={{
-								pathname: "/edit_show",
-								state: { show: defaultShow },
-							}}>Add Show</Link>
+					<div className="row">
+						<div className="col">
+							<Link
+								name=""
+								id="add-show"
+								className="btn btn-primary"
+								style={{ marginLeft: "85%" }}
+							>
+								<option value="">Add Show</option>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
