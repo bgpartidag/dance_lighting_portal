@@ -58,54 +58,54 @@ function Home() {
 								}}
 							>
 								<div className="row">
-									<select
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">Show</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">Team</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">Start Date</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">End Date</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">Start Time</option>
-									</select>
-									<select
+									</h5>
+									<h5
 										className="col-md-2"
 										name=""
 										id="select-team"
 										// style={{ margin: "5%" }}
 									>
 										<option value="">End Time</option>
-									</select>
+									</h5>
 								</div>
 							</div>
 						</div>
@@ -127,18 +127,18 @@ function Home() {
 							{/* </div> */}
 						</div>
 					</div>
-				</div>
 
-				<div className="row">
-					<div className="col">
-						<Link
-							name=""
-							id="add-show"
-							className="btn btn-primary"
-							style={{ marginLeft: "1168px" }}
-						>
-							<option value="">Add Show</option>
-						</Link>
+					<div className="row">
+						<div className="col">
+							<Link
+								name=""
+								id="add-show"
+								className="btn btn-primary"
+								style={{ marginLeft: "85%" }}
+							>
+								<option value="">Add Show</option>
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>
