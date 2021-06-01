@@ -12,32 +12,51 @@ function Home() {
 			start_time: "10:00",
 			end_time: "12:00",
 		},
+		{
+			show_name: "show 2",
+			team_name: "team b",
+			start_date: "05/30/2021",
+			end_date: "06/01/2021",
+			start_time: "10:00",
+			end_time: "12:00",
+		},
+		{
+			show_name: "show 3",
+			team_name: "team c",
+			start_date: "05/30/2021",
+			end_date: "06/01/2021",
+			start_time: "10:00",
+			end_time: "12:00",
+		},
 	];
 	return (
 		<section id="home">
 			<div className="container">
 				<div className="row">
-					<h1>Home</h1>
+					<h1>Upcoming Shows</h1>
+				</div>
+
+				<div className="row">
+					<div className="col">
+						<select name="" id="select-team" style={{ marginBottom: "10px" }}>
+							<option value="">Select Team</option>
+						</select>
+					</div>
 				</div>
 
 				<div
 					className="card card-body text-center"
-					style={{ position: "relative" }}
+					// style={{ position: "relative" }}
 				>
 					<div className="row">
 						<div className="col">
-							<select
-								name=""
-								id="select-team"
-								style={{ margin: "20px", position: "absolute" }}
+							<div
+								className="card card-body text-center"
+								style={{
+									borderColor: "white",
+									paddingBottom: "0",
+								}}
 							>
-								<option value="">Select Team</option>
-							</select>
-						</div>
-					</div>
-					<div className="row">
-						<div className="col">
-							<div className="card text-center" style={{ marginTop: "50px" }}>
 								<div className="row">
 									<select
 										className="col-md-2"
@@ -90,31 +109,36 @@ function Home() {
 								</div>
 							</div>
 						</div>
-						<div className="row">
-							<div className="card">
-								{/* <div className="card-body"> */}
-								<ul className="list-group">
-									{shows.map(function (s, idx) {
-										return (
-											<li className="list-group-item" key={s._id}>
-												<ShowItem
-													show={s}
-													evenOdd={idx % 2 === 0 ? "even_row" : "odd_row"}
-												/>
-											</li>
-										);
-									})}
-								</ul>
-								{/* </div> */}
-							</div>
+					</div>
+
+					<div className="row">
+						<div className="card" style={{ borderColor: "white" }}>
+							{/* <div className="card-body"> */}
+							<ul className="list-group">
+								{shows.map(function (s, idx) {
+									const rowTag = idx % 2 === 0 ? "even_row" : "odd_row";
+									return (
+										<li className={"list-group-item " + rowTag} key={s._id}>
+											<ShowItem show={s} />
+										</li>
+									);
+								})}
+							</ul>
+							{/* </div> */}
 						</div>
-						<div className="row">
-							<div className="col">
-								<Link name="" id="add-show" className="btn btn-primary">
-									<option value="">Add Show</option>
-								</Link>
-							</div>
-						</div>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="col">
+						<Link
+							name=""
+							id="add-show"
+							className="btn btn-primary"
+							style={{ marginLeft: "1168px" }}
+						>
+							<option value="">Add Show</option>
+						</Link>
 					</div>
 				</div>
 			</div>
