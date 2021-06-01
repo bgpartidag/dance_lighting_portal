@@ -139,18 +139,19 @@ function Home() {
 							{/* </div> */}
 						</div>
 					</div>
+				</div>
 
-					<div className="row">
-						<div className="col">
-							<Link
-								name=""
-								id="add-show"
-								className="btn btn-primary"
-								style={{ marginLeft: "85%" }}
-							>
-								<option value="">Add Show</option>
-							</Link>
-						</div>
+				<div className="row">
+					<div className="col-md-10"></div>
+					<div className="col-md-2">
+						<Link
+							name=""
+							id="add-show"
+							className="btn btn-primary"
+							style={{ marginTop: "10px" }}
+						>
+							<option value="">Add Show</option>
+						</Link>
 					</div>
 				</div>
 			</div>
