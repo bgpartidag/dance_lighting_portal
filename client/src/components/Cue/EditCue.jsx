@@ -5,10 +5,22 @@ import LightVisualizer from "./LightVisualizer";
 
 function EditCue() {
 	const location = useLocation();
-	const show = location.state.show;
-	const show_id = location.state.show_id;
-	const dance = location.state.dance;
-	const cue = location.state.cue;
+	let show = {};
+	let show_id = 'NONE'
+	let dance = {};
+	let cue = {
+		parent_dance: 'NONE',
+		start_time: "99:99",
+		end_time: "88:88",
+		cue_notes: "TEMPLATE",
+		lights: [],
+	};
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+		dance = location.state.dance;
+		cue = location.state.cue;
+	}
 	const history = useHistory();
 
 	const [error, setError] = useState("");
@@ -43,15 +55,17 @@ function EditCue() {
 		cue.cue_notes = form.light_detail.value;
 		cue.lights = lightList;
 
-		$.post("/node_add_cue", { cue: cue }).done((data) => {
-			if (data.message === "success") {
-				//navigate
-				console.log(data.cue._id);
-				history.push('/edit_dance', {dance: dance, show: show, show_id: show_id	});
-			} else {
-				setError(data.message.message);
-			}
-		});
+		if (location.state !== undefined) {
+			$.post("/node_add_cue", { cue: cue }).done((data) => {
+				if (data.message === "success") {
+					//navigate
+					console.log(data.cue._id);
+					history.push('/edit_dance', { dance: dance, show: show, show_id: show_id });
+				} else {
+					setError(data.message.message);
+				}
+			});
+		}
 	};
 
 	// if this is a new cue, set values to empty

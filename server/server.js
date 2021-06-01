@@ -145,7 +145,7 @@ const userSchema = new mongoose.Schema({
 	team_type: {
 		type: String,
 		require: true,
-	},
+	}
 });
 
 userSchema.plugin(passportLocalMongoose);
