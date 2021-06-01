@@ -1,41 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import { useLocation, Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLocation, Link, useHistory } from "react-router-dom";
 import DanceItem from "../Dance/DanceItem";
-import $ from 'jquery';
+import $ from "jquery";
 
 function Show() {
 	const location = useLocation();
-	const show = location.state.show;
-	const show_id = location.state.show_id;
+	let show = {
+		team_username: "NONE",
+		show_name: "TEMPLATE",
+		contact_name: "TEMPLATE_CONTACT",
+		contact_email: "TEMPLATE@EMAIL.COM",
+		contact_phone: "123-456-7890",
+		show_start_date: "1111-11-11",
+		show_end_date: "2222-12-22",
+		show_start_time: "99:99",
+		show_end_time: "88:88",
+		tech_start_date: "3333-03-31",
+		tech_end_date: "4444-04-04",
+		tech_start_time: "77:77",
+		tech_end_time: "66:66",
+		show_notes: "NEED TO CREATE OR ACCESS SHOW",
+	};
+	let show_id = "NONE";
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+	}
 	const [isLoaded, setIsLoaded] = useState(false);
-	const [error, setError] = useState('');
+	const [error, setError] = useState("");
 	const [dances, setDances] = useState([]);
 
-	useEffect(() => { //sorta like on document ready
+	useEffect(() => {
+		//sorta like on document ready
 		if (!isLoaded) {
 			// contact nodejs to get movies
 			// console.log(show_id);
-			$.get('/node_get_all_dances_by_show', { show_id: show_id }).done((data) => {
-				if (data.message === 'success') {
-					console.log(data.data);
-					setDances(data.data);
-					setIsLoaded(true);
-				} else {
-					setError(data.message);
+			$.get("/node_get_all_dances_by_show", { show_id: show_id }).done(
+				(data) => {
+					if (data.message === "success") {
+						console.log(data.data);
+						setDances(data.data);
+						setIsLoaded(true);
+					} else {
+						setError(data.message);
+					}
 				}
-			});
+			);
 		}
-	})
+	});
 
 	const defaultDance = {
 		parent_show: show_id,
-		dance_name: '',
+		dance_name: "",
 		dance_length: "00:00",
-		choreographer: '',
-		dance_notes: '',
-		status: "incomplete"
+		choreographer: "",
+		dance_notes: "",
+		status: "incomplete",
 	};
-	
+
 	return (
 		<section id="edit_que">
 			<div className="container">
@@ -88,11 +110,21 @@ function Show() {
 							</div>
 						</div>
 						<div className="row text-center">
-							<p id="error_message" style={{ color: "red" }}>{error}</p>
+							<p id="error_message" style={{ color: "red" }}>
+								{error}
+							</p>
 						</div>
-						<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
-							pathname: "/edit_dance", state: { show: show , dance: defaultDance, show_id: show_id}
-						}}>Add Dance</Link>
+						<Link
+							type="button"
+							className="btn btn-primary"
+							style={{ width: "20%" }}
+							to={{
+								pathname: "/edit_dance",
+								state: { show: show, dance: defaultDance, show_id: show_id },
+							}}
+						>
+							Add Dance
+						</Link>
 					</div>
 					<div className="col-md-2">
 						<form>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 function LightCard(props) {
 	const name = props.name;
@@ -7,6 +7,8 @@ function LightCard(props) {
 	const ID = props.ID;
 	// get the current light if it has a value
 	const findLight = cue.lights.find((l) => l.light_name === ID);
+	//const [on, setON] = useState(false);
+	let check = false;
 	// default light
 	let light = {
 		brightness: 0,
@@ -16,11 +18,11 @@ function LightCard(props) {
 	if (findLight) {
 		light = findLight;
 		console.log(light);
+		check = true;
 	}
 	// flood light case
 	if (hasColor === "true") {
 		// get cue by name
-
 		return (
 			<div class="card">
 				<div class="card-body">
@@ -30,6 +32,7 @@ function LightCard(props) {
 						id={ID}
 						name={ID}
 						autocomplete="off"
+						defaultChecked={check}
 					/>
 					<label
 						className="btn btn-outline-dark form-control"
@@ -75,6 +78,7 @@ function LightCard(props) {
 						id={ID}
 						name={ID}
 						autocomplete="off"
+						defaultChecked={check}
 					/>
 					<label
 						className="btn btn-outline-dark form-control"

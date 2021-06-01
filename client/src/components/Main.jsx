@@ -10,6 +10,10 @@ import EditCue from "./Cue/EditCue";
 import Show from "./Show/Show";
 import LightingInfo from "./Show/LightingInfo";
 import DisplayShowInfo from "./Show/DisplayShowInfo";
+import Login from "./User/Login";
+import Register from "./User/Register";
+import TechSignup from "./User/TechSignup";
+import Home from "./Home/Home";
 
 function Main() {
 	return (
@@ -45,9 +49,18 @@ function Main() {
 					<Route path="/display-show-info">
 						<DisplayShowInfo />
 					</Route>
-					{/* <Route path='/tech_registration'><TechRegistration/></Route> */}
-					{/* <Route path='/login'><Login setCurrentUser={setCurrentUser}/></Route> */}
-					{/* <Route path='/register'><Register setCurrentUser={setCurrentUser}/></Route> */}
+					<Route path="/tech_signup">
+						<TechSignup />
+					</Route>
+					<Route path="/login">
+						<Login />
+					</Route>
+					<Route path="/register">
+						<Register />
+					</Route>
+					<Route path="/home">
+						<Home />
+					</Route>
 				</Switch>
 			</div>
 			<Footer />

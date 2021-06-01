@@ -111,14 +111,78 @@ const showSchema = {
         type: String,
         require: [true, "Contact  cannot be empty"]
     },
-    show_start_date: String,
-    show_end_date: String,
-    show_start_time: String,
-    show_end_time: String,
-    tech_start_date: String,
-    tech_end_date: String,
-    tech_start_time: String,
-    tech_end_time: String,
+    show_start_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Show start date must be correctly filled."
+        }
+    },
+    show_end_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Show end date must be correctly filled."
+        }
+    },
+    show_start_time: {
+		type: String,
+		validate: {
+			validator: function (value) {
+				return /\d{2}:\d{2}/.test(value);
+			},
+			message: "Show start time format must be correctly filled",
+		},
+	},
+    show_end_time: {
+		type: String,
+		validate: {
+			validator: function (value) {
+				return /\d{2}:\d{2}/.test(value);
+			},
+			message: "Show end time format must be correctly filled",
+		},
+	},
+    tech_start_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Tech start date must be correctly filled."
+        }
+    },
+    tech_end_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Tech end date must be correctly filled."
+        }
+    },
+    tech_start_time: {
+		type: String,
+		validate: {
+			validator: function (value) {
+				return /\d{2}:\d{2}/.test(value);
+			},
+			message: "Tech start time format must be correctly filled",
+		},
+	},
+    tech_end_time: {
+		type: String,
+		validate: {
+			validator: function (value) {
+				return /\d{2}:\d{2}/.test(value);
+			},
+			message: "Tech end time format must be correctly filled",
+		},
+	},
     show_notes: String,
 }
 
@@ -145,7 +209,7 @@ const userSchema = new mongoose.Schema({
 	team_type: {
 		type: String,
 		require: true,
-	},
+	}
 });
 
 userSchema.plugin(passportLocalMongoose);

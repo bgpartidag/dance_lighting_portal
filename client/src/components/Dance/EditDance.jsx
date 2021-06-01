@@ -21,7 +21,7 @@ function AddCueAbility(props) {
 		return (
 			<div className="row">
 				<h5 style={{ textAlign: "left" }}>Cue List</h5>
-				<CueList dance={dance} dance_id ={dance._id} show={props.show} show_id={props.show_id} />
+				<CueList dance={dance} dance_id={dance._id} show={props.show} show_id={props.show_id} />
 				<div className="row">
 					<div className="col-12 text-left button_col">
 						<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
@@ -40,9 +40,21 @@ function AddCueAbility(props) {
 
 function EditDance() {
 	const location = useLocation();
-	const show = location.state.show;
-	const show_id = location.state.show_id;
-	const dance = location.state.dance;
+	let show = {};
+	let show_id = 'NONE'
+	let dance = {
+		parent_show: show_id,
+		dance_name: 'TEMPLATE NAME',
+		dance_length: "00:00",
+		choreographer: 'TEMPLATE CHOREOGRAPHER',
+		dance_notes: 'TEMPLATE NOTES',
+		status: "incomplete"
+	};
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+		dance = location.state.dance;
+	}
 	const [error, setError] = useState('');
 	const history = useHistory();
 
@@ -56,18 +68,20 @@ function EditDance() {
 		dance.dance_notes = form.dance_info.value
 		console.log(dance);
 
-		if (dance.dance_name === '') {
-			setError('Dance Name cannot be empty')
-		} else {
-			$.post('/node_add_dance', { dance: dance }).done((data) => {
-				if (data.message === 'success') {
-					//navigate to somewhere
-					// console.log(data.dance._id);
-					history.push('/show', { show: show, show_id: show_id });
-				} else {
-					setError(data.message.message);
-				}
-			});
+		if (location.state !== undefined) {
+			if (dance.dance_name === '' || dance.choreographer === '') {
+				setError('Only Details can be left empty. Please fill in everything else.');
+			} else {
+				$.post('/node_add_dance', { dance: dance }).done((data) => {
+					if (data.message === 'success') {
+						//navigate to somewhere
+						// console.log(data.dance._id);
+						history.push('/show', { show: show, show_id: show_id });
+					} else {
+						setError(data.message.message);
+					}
+				});
+			}
 		}
 	}
 
