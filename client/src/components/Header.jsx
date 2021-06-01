@@ -44,7 +44,7 @@ function UserLogin(props) {
 function Header(props) {
 	return (
 		<section id="header_section">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container-fluid">
 					{/* Adds image and text to header */}
 					{/* The href sets up the img and text as a link to the home page */}
