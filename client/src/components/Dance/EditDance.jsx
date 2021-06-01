@@ -56,8 +56,8 @@ function EditDance() {
 		dance.dance_notes = form.dance_info.value
 		console.log(dance);
 
-		if (dance.dance_name === '') {
-			setError('Dance Name cannot be empty')
+		if (dance.dance_name === '' || dance.choreographer === '') {
+			setError('Only Details can be left empty. Please fill in everything else.');
 		} else {
 			$.post('/node_add_dance', { dance: dance }).done((data) => {
 				if (data.message === 'success') {
