@@ -3,9 +3,44 @@ import $ from "jquery";
 import {useLocation, Link, useHistory} from 'react-router-dom';
 
 function EditShow() {
+	const location = useLocation();
 	const [error, setError] = useState("");
 	const history = useHistory();
-
+	let show = {
+		team_username: "TBD",
+		show_name: "",
+		contact_name: "",
+		contact_email: "",
+		contact_phone: "",
+		show_start_date: "",
+		show_end_date: "",
+		show_start_time: "",
+		show_end_time: "",
+		tech_start_date: "",
+		tech_end_date: "",
+		tech_start_time:"",
+		tech_end_time: "",
+		show_notes: "",
+	};
+	// let show = {
+	// 	team_username: "TBD",
+	// 	show_name: "TEMPLATE",
+	// 	contact_name: "TEMPLATE_CONTACT",
+	// 	contact_email: "TEMPLATE@EMAIL.COM",
+	// 	contact_phone: "123-456-7890",
+	// 	show_start_date: "1111-11-11",
+	// 	show_end_date: "2222-12-22",
+	// 	show_start_time: "09:09",
+	// 	show_end_time: "08:08",
+	// 	tech_start_date: "3333-03-31",
+	// 	tech_end_date: "4444-04-04",
+	// 	tech_start_time:"07:07",
+	// 	tech_end_time: "06:06",
+	// 	show_notes: "NEED TO CREATE OR ACCESS SHOW",
+	// };
+	if (location.state !== undefined) {
+		show = location.state.show;
+	}
 	const saveShow = (event) => {
 		event.preventDefault();
 		setError('');
@@ -29,8 +64,6 @@ function EditShow() {
 		};
 
 		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone){
-			setError('Only Details can be left empty. Please fill in everything else.');
-		}else if (!show.show_start_date || !show.show_start_time || !show.show_end_date || !show.show_end_time || !show.tech_start_date || !show.tech_start_time || !show.tech_end_date || !show.tech_end_time) {
 			setError('Only Details can be left empty. Please fill in everything else.');
 		}else{
 			console.log("saving show")
@@ -85,6 +118,7 @@ function EditShow() {
 										id="show_name"
 										className="form-control"
 										placeholder='Show'
+										defaultValue={show.show_name}
 									/>
 									<label for="contact_name" className="form-label">
 										Contact Name:
@@ -95,6 +129,7 @@ function EditShow() {
 										id="contact_name"
 										className="form-control"
 										placeholder='Contact'
+										defaultValue={show.contact_name}
 									/>
 									<label for="contact_name" className="form-label">
 										Email:
@@ -105,6 +140,7 @@ function EditShow() {
 										id="contact_email"
 										className="form-control"
 										placeholder='contact@email.com'
+										defaultValue={show.contact_email}
 									/>
 									<label for="contact_phone" className="form-label">
 										Phone:
@@ -116,6 +152,7 @@ function EditShow() {
 										pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 										className="form-control"
 										placeholder='xxx-xxx-xxxx'
+										defaultValue={show.contact_phone}
 									/>
 								</div>
 								</div>
@@ -134,6 +171,7 @@ function EditShow() {
 										id="show_start"
 										name="show_start"
 										className="form-control"
+										defaultValue={show.show_start_date}
 									/>
 									<label for="show_start_time" className="form-label">
 										Start Time:
@@ -145,6 +183,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.show_start_time}
 									/>
 									<label for="show_end" className="form-label">
 										End Date:
@@ -154,6 +193,7 @@ function EditShow() {
 										id="show_end"
 										name="show_end"
 										className="form-control"
+										defaultValue={show.show_end_date}
 									/>
 									<label for="show_end_time" className="form-label">
 										End Time:
@@ -165,6 +205,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.show_end_time}
 									/>
 								</div>
 								</div>
@@ -183,6 +224,7 @@ function EditShow() {
 										id="tech_start"
 										name="tech_start"
 										className="form-control"
+										defaultValue={show.tech_start_date}
 									/>
 									<label for="tech_start_time" className="form-label">
 										Start Time:
@@ -194,6 +236,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.tech_start_time}
 									/>
 									<label for="tech_end" className="form-label">
 										End Date:
@@ -203,6 +246,7 @@ function EditShow() {
 										id="tech_end"
 										name="tech_end"
 										className="form-control"
+										defaultValue={show.tech_end_date}
 									/> 
 									<label for="tech_end_time" className="form-label">
 										End Time:
@@ -214,6 +258,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.tech_end_time}
 									/>
 								</div>
 								{/* End of card 3 */}
@@ -237,6 +282,7 @@ function EditShow() {
 								className="form-control"
 								placeholder="Details..."
 								style={{ height: "85%", textAlign: "left"}}
+								defaultValue={show.show_notes}
 							></textarea>
 						</div>
 						</div>
