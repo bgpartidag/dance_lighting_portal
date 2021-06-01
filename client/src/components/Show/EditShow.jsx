@@ -1,44 +1,78 @@
 import React, { useState } from "react";
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import {useLocation, Link, useHistory} from 'react-router-dom';
 
 function EditShow() {
+	const location = useLocation();
 	const [error, setError] = useState("");
-	//const history = useHistory();
-
+	const history = useHistory();
+	let show = {
+		team_username: "TBD",
+		show_name: "",
+		contact_name: "",
+		contact_email: "",
+		contact_phone: "",
+		show_start_date: "",
+		show_end_date: "",
+		show_start_time: "",
+		show_end_time: "",
+		tech_start_date: "",
+		tech_end_date: "",
+		tech_start_time:"",
+		tech_end_time: "",
+		show_notes: "",
+	};
+	// let show = {
+	// 	team_username: "TBD",
+	// 	show_name: "TEMPLATE",
+	// 	contact_name: "TEMPLATE_CONTACT",
+	// 	contact_email: "TEMPLATE@EMAIL.COM",
+	// 	contact_phone: "123-456-7890",
+	// 	show_start_date: "1111-11-11",
+	// 	show_end_date: "2222-12-22",
+	// 	show_start_time: "09:09",
+	// 	show_end_time: "08:08",
+	// 	tech_start_date: "3333-03-31",
+	// 	tech_end_date: "4444-04-04",
+	// 	tech_start_time:"07:07",
+	// 	tech_end_time: "06:06",
+	// 	show_notes: "NEED TO CREATE OR ACCESS SHOW",
+	// };
+	if (location.state !== undefined) {
+		show = location.state.show;
+	}
 	const saveShow = (event) => {
 		event.preventDefault();
 		setError('');
         const form = event.target.elements;
-		console.log("The Start Date: " + form.show_start.value);
+
 		const show = {
 			team_username: "TBD",
 			show_name: form.show_name.value,
 			contact_name: form.contact_name.value,
 			contact_email: form.contact_email.value,
 			contact_phone: form.contact_phone.value,
-			show_start_date: "00-00-0000",
-			show_end_date: "11-11-1111",
+			show_start_date: form.show_start.value,
+			show_end_date: form.show_end.value,
 			show_start_time: form.show_start_time.value,
 			show_end_time: form.show_end_time.value,
-			tech_start_date: "33-33-3333",
-			tech_end_date: "44-44-4444",
+			tech_start_date: form.tech_start.value,
+			tech_end_date: form.tech_end.value,
 			tech_start_time: form.tech_start_time.value,
 			tech_end_time: form.tech_end_time.value,
 			show_notes: form.show_detail.value,
 		};
-		console.log(show);
 
 		if (!show.show_name || !show.contact_name || !show.contact_email || !show.contact_phone){
 			setError('Only Details can be left empty. Please fill in everything else.');
 		}else{
+			console.log("saving show")
 			$.post('/node_add_show', {show:show}).done((data)=>{
 				if(data.message === 'success'){
 	
 					//navigate to show breakdown
-					//history.push('/show PATHNAME TBD', {show:show})
-					console.log(data.show._id);
-					setError('navigation not in place');
+					//console.log(data.show._id);
+					history.push('/show', {show:show , show_id: data.show._id})
 				}else{
 					setError(data.message.message);
 				}
@@ -84,6 +118,7 @@ function EditShow() {
 										id="show_name"
 										className="form-control"
 										placeholder='Show'
+										defaultValue={show.show_name}
 									/>
 									<label for="contact_name" className="form-label">
 										Contact Name:
@@ -94,6 +129,7 @@ function EditShow() {
 										id="contact_name"
 										className="form-control"
 										placeholder='Contact'
+										defaultValue={show.contact_name}
 									/>
 									<label for="contact_name" className="form-label">
 										Email:
@@ -104,6 +140,7 @@ function EditShow() {
 										id="contact_email"
 										className="form-control"
 										placeholder='contact@email.com'
+										defaultValue={show.contact_email}
 									/>
 									<label for="contact_phone" className="form-label">
 										Phone:
@@ -115,6 +152,7 @@ function EditShow() {
 										pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
 										className="form-control"
 										placeholder='xxx-xxx-xxxx'
+										defaultValue={show.contact_phone}
 									/>
 								</div>
 								</div>
@@ -133,6 +171,7 @@ function EditShow() {
 										id="show_start"
 										name="show_start"
 										className="form-control"
+										defaultValue={show.show_start_date}
 									/>
 									<label for="show_start_time" className="form-label">
 										Start Time:
@@ -144,6 +183,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.show_start_time}
 									/>
 									<label for="show_end" className="form-label">
 										End Date:
@@ -152,8 +192,8 @@ function EditShow() {
 										type="date"
 										id="show_end"
 										name="show_end"
-										value=""
 										className="form-control"
+										defaultValue={show.show_end_date}
 									/>
 									<label for="show_end_time" className="form-label">
 										End Time:
@@ -165,6 +205,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.show_end_time}
 									/>
 								</div>
 								</div>
@@ -183,6 +224,7 @@ function EditShow() {
 										id="tech_start"
 										name="tech_start"
 										className="form-control"
+										defaultValue={show.tech_start_date}
 									/>
 									<label for="tech_start_time" className="form-label">
 										Start Time:
@@ -194,6 +236,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.tech_start_time}
 									/>
 									<label for="tech_end" className="form-label">
 										End Date:
@@ -202,8 +245,8 @@ function EditShow() {
 										type="date"
 										id="tech_end"
 										name="tech_end"
-										value=""
 										className="form-control"
+										defaultValue={show.tech_end_date}
 									/> 
 									<label for="tech_end_time" className="form-label">
 										End Time:
@@ -215,6 +258,7 @@ function EditShow() {
 										min="09:00"
 										max="24:00"
 										className="form-control"
+										defaultValue={show.tech_end_time}
 									/>
 								</div>
 								{/* End of card 3 */}
@@ -238,6 +282,7 @@ function EditShow() {
 								className="form-control"
 								placeholder="Details..."
 								style={{ height: "85%", textAlign: "left"}}
+								defaultValue={show.show_notes}
 							></textarea>
 						</div>
 						</div>

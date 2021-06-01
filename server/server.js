@@ -68,125 +68,125 @@ const cueSchema = {
 const Cue = mongoose.model("Cue", cueSchema);
 
 const danceSchema = {
-	parent_show: {
-		type: String,
-		require: true,
-	},
-	dance_name: { type: String, require: true },
-	dance_length: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{1}:\d{2}/.test(value);
-			},
-			message: "Length format must be 0:00",
-		},
-	},
-	choreographer: String,
-	dance_notes: String,
-	status: String,
-};
+    parent_show: {
+        type: String,
+        require: true
+    },
+    dance_name: { type: String, require: true },
+    dance_length: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{2}:\d{2}/.test(value)
+            },
+            message: "Length format must be 0:00"
+        }
+    },
+    choreographer: String,
+    dance_notes: String,
+    status: String
+}
 
-const Dance = mongoose.model("Dance", danceSchema);
+const Dance = mongoose.model('Dance', danceSchema);
 
 // Requirements for a show
 const showSchema = {
-	team_username: {
-		type: String,
-		require: true,
-	},
-	show_name: {
-		type: String,
-		require: [true, "Show must be named"],
-	},
-	contact_name: {
-		type: String,
-		require: [true, "Contact Name cannot be empty"],
-	},
-	contact_email: {
-		type: String,
-		require: [true, "Contact String cannot be empty"],
-	},
-	contact_phone: {
-		type: String,
-		require: [true, "Contact  cannot be empty"],
-	},
-	show_start_date: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{2}-\d{2}-\d{4}/.test(value);
-			},
-			message: "Date format must be MM-DD-YYYY",
-		},
-	},
-	show_end_date: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{2}-\d{2}-\d{4}/.test(value);
-			},
-			message: "Date format must be MM-DD-YYYY",
-		},
-	},
-	show_start_time: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{2}:\d{2}/.test(value);
-			},
-			message: "Time format must be MM:SS",
-		},
-	},
-	show_end_time: {
+    team_username: {
+        type: String,
+        require: true
+    },
+    show_name: {
+        type: String,
+        require: [true, "Show must be named"]
+    },
+    contact_name: {
+        type: String,
+        require: [true, "Contact Name cannot be empty"]
+    },
+    contact_email: {
+        type: String,
+        require: [true, "Contact String cannot be empty"]
+    },
+    contact_phone: {
+        type: String,
+        require: [true, "Contact  cannot be empty"]
+    },
+    show_start_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Show start date must be correctly filled."
+        }
+    },
+    show_end_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Show end date must be correctly filled."
+        }
+    },
+    show_start_time: {
 		type: String,
 		validate: {
 			validator: function (value) {
 				return /\d{2}:\d{2}/.test(value);
 			},
-			message: "Time format must be MM:SS",
+			message: "Show start time format must be correctly filled",
 		},
 	},
-	tech_start_date: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{2}-\d{2}-\d{4}/.test(value);
-			},
-			message: "Date format must be MM-DD-YYYY",
-		},
-	},
-	tech_end_date: {
-		type: String,
-		validate: {
-			validator: function (value) {
-				return /\d{2}-\d{2}-\d{4}/.test(value);
-			},
-			message: "Date format must be MM-DD-YYYY",
-		},
-	},
-	tech_start_time: {
+    show_end_time: {
 		type: String,
 		validate: {
 			validator: function (value) {
 				return /\d{2}:\d{2}/.test(value);
 			},
-			message: "Time format must be MM:SS",
+			message: "Show end time format must be correctly filled",
 		},
 	},
-	tech_end_time: {
+    tech_start_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Tech start date must be correctly filled."
+        }
+    },
+    tech_end_date: {
+        type: String,
+        validate: {
+            validator: function (value) {
+                return /\d{4}-\d{2}-\d{2}/.test(value)
+            },
+            message: "Tech end date must be correctly filled."
+        }
+    },
+    tech_start_time: {
 		type: String,
 		validate: {
 			validator: function (value) {
 				return /\d{2}:\d{2}/.test(value);
 			},
-			message: "Time format must be MM:SS",
+			message: "Tech start time format must be correctly filled",
 		},
 	},
-	show_notes: String,
-};
+    tech_end_time: {
+		type: String,
+		validate: {
+			validator: function (value) {
+				return /\d{2}:\d{2}/.test(value);
+			},
+			message: "Tech end time format must be correctly filled",
+		},
+	},
+    show_notes: String,
+}
 
-const Show = mongoose.model("Show", showSchema);
+const Show = mongoose.model('Show', showSchema);
 
 // Requirements for a user
 const userSchema = new mongoose.Schema({
@@ -209,7 +209,7 @@ const userSchema = new mongoose.Schema({
 	team_type: {
 		type: String,
 		require: true,
-	},
+	}
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -403,44 +403,52 @@ app.get("/node_get_dance_by_id", function (req, res) {
 
 // Get All Dances in a show
 // NEED FIELDS AND PARAMETERS
-app.get("/node_get_all_dances_by_show", function (req, res) {
-	// NEEDED: the Show ID
-	const show_id = req.body.show_id;
+app.get('/node_get_all_dances_by_show', function (req, res) {
 
-	Dance.find({ parent_show: show_id }, function (err, data) {
-		if (err || data.length === 0) {
-			res.send({
-				message: "Internal Database Error Getting All Dances under a Show",
-				data: {},
-			});
-		} else {
-			res.send({
-				message: "success",
-				data: data,
-			});
-		}
-	});
+    // NEEDED: the Show ID
+    const show_id = req.query.show_id;
+
+    Dance.find(
+        { parent_show: {$eq:show_id} },
+        function (err, data) {
+            if (err) {
+                res.send({
+                    "message": "Internal Database Error Getting All Dances under a Show",
+                    "data": {}
+                });
+            } else {
+                res.send({
+                    "message": "success",
+                    "data": data
+                })
+            }
+        }
+    )
 });
 
 // Get All Cues in a dance
 // NEED FIELDS AND PARAMETERS
-app.get("/node_get_all_cues_by_dance", function (req, res) {
-	// NEEDED: the Dance ID
-	const dance_id = req.body.dance_id;
+app.get('/node_get_all_cues_by_dance', function (req, res) {
 
-	Cue.find({ parent_dance: dance_id }, function (err, data) {
-		if (err || data.length === 0) {
-			res.send({
-				message: "Internal Database Error Getting All Cues under a Dance",
-				data: {},
-			});
-		} else {
-			res.send({
-				message: "success",
-				data: data,
-			});
-		}
-	});
+    // NEEDED: the Dance ID
+    const dance_id = req.query.dance_id;
+
+    Cue.find(
+        { parent_dance: {$eq:dance_id} },
+        function (err, data) {
+            if (err) {
+                res.send({
+                    "message": "Internal Database Error Getting All Cues under a Dance",
+                    "data": {}
+                });
+            } else {
+                res.send({
+                    "message": "success",
+                    "data": data
+                })
+            }
+        }
+    )
 });
 
 //Add new or Update Show to the database

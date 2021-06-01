@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from 'react'
 import { Link } from "react-router-dom";
 import $ from "jquery";
 
 function DanceItem(props) {
 	const row_class = "row " + props.evenOdd;
 	const dance = props.dance;
-	const cues = [];
+	const show = props.show;
+	const show_id = props.show_id;
+	const [cues_length, setLength] = useState(0);
 
 	// get all cues
-	$.get("/node_get_all_cues_by_dance", { id: dance.id }).done((data) => {
+	$.get("/node_get_all_cues_by_dance", { dance_id: props.dance_id }).done((data) => {
 		if (data.message === "success") {
-			cues = data.cues;
+			setLength(data.data.length);
 		}
 	});
 
@@ -26,7 +28,8 @@ function DanceItem(props) {
 						pathname: "/edit_dance",
 						state: {
 							dance: dance,
-							show_id: "A show id i guess",
+							show: show,
+							show_id: show_id
 						},
 					}}
 				>
@@ -37,14 +40,14 @@ function DanceItem(props) {
 				<p>{dance.choreographer}</p>
 			</div>
 			<div className="col-lg-3">
-				<p>{"Duration: " + dance.length}</p>
+				<p>{"Duration: " + dance.dance_length}</p>
 			</div>
 
 			<div className="col-lg-3" style={{ textAlign: "right" }}>
 				<p>Status: {dance.status}</p>
 			</div>
 			<div className="col-lg-2" style={{ textAlign: "right" }}>
-				<p>Cues: {cues.length}</p>
+				<p>Cues: {cues_length}</p>
 			</div>
 			{/* <div className="col-lg-1" style={{ textAlign: "right" }}>
 				<i

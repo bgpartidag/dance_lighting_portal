@@ -1,53 +1,88 @@
 import React, { useState } from 'react';
 import $ from "jquery";
-import { Link } from "react-router-dom";
+import { useLocation, Link, useHistory } from 'react-router-dom';
 //import LightItem from "./LightItem";
 import CueList from "../Cue/CueList";
 
-function AddCueAbility() {
-	const randomBoolean = false;
+function AddCueAbility(props) {
+	//const randomBoolean = false;
+	const dance = props.dance
+	console.log(dance._id);
 
-	if (randomBoolean) {
+	const defaultCue = {
+		parent_dance: dance._id,
+		start_time: "",
+		end_time: "",
+		cue_notes: "",
+		lights: [],
+	}
+
+	if (dance._id !== undefined) {
 		return (
-			<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
-				pathname: "/PATHNAME TBD", state: { dance_name: "TBD" }
-			}}>Add Cue</Link>
+			<div className="row">
+				<h5 style={{ textAlign: "left" }}>Cue List</h5>
+				<CueList dance={dance} dance_id={dance._id} show={props.show} show_id={props.show_id} />
+				<div className="row">
+					<div className="col-12 text-left button_col">
+						<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
+							pathname: "/edit_cue", state: { cue: defaultCue, dance: dance, show: props.show, show_id: props.show_id }
+						}}>Add Cue</Link>
+					</div>
+				</div>
+			</div>
 		)
-	}else{
-		return(
+	} else {
+		return (
 			<p>Dance needs to be saved before adding cues.</p>
 		)
 	}
 }
 
 function EditDance() {
+	const location = useLocation();
+	let show = {};
+	let show_id = 'NONE'
+	let dance = {
+		parent_show: show_id,
+		dance_name: 'TEMPLATE NAME',
+		dance_length: "00:00",
+		choreographer: 'TEMPLATE CHOREOGRAPHER',
+		dance_notes: 'TEMPLATE NOTES',
+		status: "incomplete"
+	};
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+		dance = location.state.dance;
+	}
 	const [error, setError] = useState('');
+	const history = useHistory();
 
 	const saveDance = (event) => {
 		event.preventDefault();
 		setError('');
 		const form = event.target.elements;
-		const dance = {
-			parent_show: "60b43c0b4ef9e842e455dc76",
-			dance_name: form.dance_name.value,
-			dance_length: "00:00",
-			choreographer: form.choreographer_name.value,
-			dance_notes: form.dance_info.value,
-			status: "incomplete"
-		}
+
+		dance.dance_name = form.dance_name.value;
+		dance.choreographer = form.choreographer_name.value;
+		dance.dance_notes = form.dance_info.value
 		console.log(dance);
 
-
-		$.post('/node_add_dance', {dance: dance}).done((data)=>{
-			if(data.message === 'success'){
-				//navigate to somewhere
-				//history.push('/PATHNAME TBD')b
-				console.log(data.dance._id);
-				setError('navigation not in place');
-			}else{
-				setError(data.message.message);
+		if (location.state !== undefined) {
+			if (dance.dance_name === '' || dance.choreographer === '') {
+				setError('Only Details can be left empty. Please fill in everything else.');
+			} else {
+				$.post('/node_add_dance', { dance: dance }).done((data) => {
+					if (data.message === 'success') {
+						//navigate to somewhere
+						// console.log(data.dance._id);
+						history.push('/show', { show: show, show_id: show_id });
+					} else {
+						setError(data.message.message);
+					}
+				});
 			}
-		});
+		}
 	}
 
 	return (
@@ -65,6 +100,7 @@ function EditDance() {
 									<input
 										type="text"
 										name="dance_name"
+										defaultValue={dance.dance_name}
 										id="dance_name"
 										className="form-control"
 										placeholder='Dance'
@@ -79,6 +115,7 @@ function EditDance() {
 										type="text"
 										name="choreographer_name"
 										id="choreographer_name"
+										defaultValue={dance.choreographer}
 										className="form-control"
 										placeholder='Choreographer'
 									/>
@@ -91,6 +128,7 @@ function EditDance() {
 									type="text"
 									id="dance_info"
 									name="dance_info"
+									defaultValue={dance.dance_notes}
 									className="form-control"
 									placeholder='Dance info...'
 									style={{ height: "100%", textAlign: "left" }}
@@ -98,15 +136,7 @@ function EditDance() {
 							</label>
 						</div>
 						<div className="col-8">
-							<div className="row">
-								<h5 style={{ textAlign: "left" }}>Cue List</h5>
-								<CueList />
-								<div className="row">
-									<div className="col-12 text-left button_col">
-										<AddCueAbility/>
-									</div>
-								</div>
-							</div>
+							<AddCueAbility dance={dance} show={show} show_id={show_id} />
 						</div>
 					</div>
 					<div className="row text-center">

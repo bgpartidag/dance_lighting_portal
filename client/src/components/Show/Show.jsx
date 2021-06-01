@@ -1,34 +1,60 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react'
+import { useLocation, Link, useHistory } from 'react-router-dom';
 import DanceItem from "../Dance/DanceItem";
+import $ from 'jquery';
 
-function Show(props) {
-	const show = {
-		team_username: "team1",
-		show_name: "show1",
-		contact_name: "Nicholas",
-		contact_email: "NiMitchell@clarku.edu",
-		contact_phone: "802-289-2607",
-		show_start: "05/30/2021",
-		show_end: "06/01/2021",
-		show_start_time: "10:00",
-		show_end_time: "12:00",
-		tech_start: "05/28/2021",
-		tech_end: "06/01/2021",
-		tech_start_time: "6:00",
-		tech_end_time: "12:00",
-		show_notes: "this show gone slap",
+function Show() {
+	const location = useLocation();
+	let show = {
+		team_username: "NONE",
+		show_name: "TEMPLATE",
+		contact_name: "TEMPLATE_CONTACT",
+		contact_email: "TEMPLATE@EMAIL.COM",
+		contact_phone: "123-456-7890",
+		show_start_date: "1111-11-11",
+		show_end_date: "2222-12-22",
+		show_start_time: "99:99",
+		show_end_time: "88:88",
+		tech_start_date: "3333-03-31",
+		tech_end_date: "4444-04-04",
+		tech_start_time:"77:77",
+		tech_end_time: "66:66",
+		show_notes: "NEED TO CREATE OR ACCESS SHOW",
 	};
-	const dances = [
-		{
-			parent_show: "show1_id",
-			dance_name: "dance1",
-			choreographer: "Nicholas",
-			length: 120,
-			dance_notes: "testComments",
-			status: "Complete",
-		},
-	];
+	let show_id = 'NONE'
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+	}
+	const [isLoaded, setIsLoaded] = useState(false);
+	const [error, setError] = useState('');
+	const [dances, setDances] = useState([]);
+
+	useEffect(() => { //sorta like on document ready
+		if (!isLoaded) {
+			// contact nodejs to get movies
+			// console.log(show_id);
+			$.get('/node_get_all_dances_by_show', { show_id: show_id }).done((data) => {
+				if (data.message === 'success') {
+					console.log(data.data);
+					setDances(data.data);
+					setIsLoaded(true);
+				} else {
+					setError(data.message);
+				}
+			});
+		}
+	})
+
+	const defaultDance = {
+		parent_show: show_id,
+		dance_name: '',
+		dance_length: "00:00",
+		choreographer: '',
+		dance_notes: '',
+		status: "incomplete"
+	};
+
 	return (
 		<section id="edit_que">
 			<div className="container">
@@ -44,18 +70,18 @@ function Show(props) {
 								<br />
 								<h5 style={{ textAlign: "left" }}>Show Dates:</h5>
 								<p>
-									Start: {show.show_end} at {show.show_start_time}
+									Start: {show.show_end_date} at {show.show_start_time}
 								</p>
 								<p>
-									End: {show.show_end} at {show.show_end_time}
+									End: {show.show_end_date} at {show.show_end_time}
 								</p>
 								<br />
 								<h5 style={{ textAlign: "left" }}>Tech Dates:</h5>
 								<p>
-									Start: {show.tech_start} at at {show.tech_start_time}
+									Start: {show.tech_start_date} at at {show.tech_start_time}
 								</p>
 								<p>
-									End: {show.show_end} at {show.tech_end_time}
+									End: {show.show_end_date} at {show.tech_end_time}
 								</p>
 							</div>
 						</div>
@@ -69,6 +95,9 @@ function Show(props) {
 											<li className="list-group-item" key={d._id}>
 												<DanceItem
 													dance={d}
+													dance_id={d._id}
+													show={show}
+													show_id={show_id}
 													evenOdd={idx % 2 === 0 ? "even_row" : "odd_row"}
 												/>
 											</li>
@@ -77,9 +106,12 @@ function Show(props) {
 								</ul>
 							</div>
 						</div>
-						<Link className="btn btn-primary" to={{ pathname: "/edit_dance" }}>
-							Add Dance
-						</Link>
+						<div className="row text-center">
+							<p id="error_message" style={{ color: "red" }}>{error}</p>
+						</div>
+						<Link type="button" className="btn btn-primary" style={{ width: "20%" }} to={{
+							pathname: "/edit_dance", state: { show: show, dance: defaultDance, show_id: show_id }
+						}}>Add Dance</Link>
 					</div>
 					<div className="col-md-2">
 						<form>

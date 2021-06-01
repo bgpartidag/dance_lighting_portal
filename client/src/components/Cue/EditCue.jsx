@@ -3,35 +3,28 @@ import { useLocation, Link, useHistory } from "react-router-dom";
 import $ from "jquery";
 import LightVisualizer from "./LightVisualizer";
 
-function EditCue(props) {
+function EditCue() {
+	const location = useLocation();
+	let show = {};
+	let show_id = 'NONE'
+	let dance = {};
+	let cue = {
+		parent_dance: 'NONE',
+		start_time: "99:99",
+		end_time: "88:88",
+		cue_notes: "TEMPLATE",
+		lights: [],
+	};
+	if (location.state !== undefined) {
+		show = location.state.show;
+		show_id = location.state.show_id;
+		dance = location.state.dance;
+		cue = location.state.cue;
+	}
+	const history = useHistory();
+
 	const [error, setError] = useState("");
 
-	const cue = {
-		parent_dance: "60b4448e2f29a92ef43ee39b",
-		start_time: "1:35",
-		end_time: "2:40",
-		cue_notes: "Notes for cue",
-		lights: [
-			{
-				light_name: "left_flood",
-				color: "green",
-				brightness: 85,
-			},
-		],
-	};
-
-	// new cue, create an empty cue
-	if (cue === null) {
-		cue = {
-			parent_dance: "60b4448e2f29a92ef43ee39b",
-			start_time: "",
-			end_time: "",
-			cue_notes: "",
-			lights: [],
-		};
-	}
-
-	const history = useHistory();
 	const saveCue = (event) => {
 		event.preventDefault();
 		setError("");
@@ -40,8 +33,6 @@ function EditCue(props) {
 		let lightList = []
 
 		Array.from(document.querySelectorAll(".light_checks")).forEach((checkbox) => {
-			//console.log(document.getElementById(checkbox.id));
-			//console.log(document.getElementById(checkbox.id).checked);
 			if (document.getElementById(checkbox.id).checked) {
 				const light_id = document.getElementById(checkbox.id).id;
 				const brightness_id = light_id + "_brightness";
@@ -58,23 +49,23 @@ function EditCue(props) {
 				})
 			}
 		});
-		//console.log(lightList);
 
 		cue.start_time = form.cue_start.value;
 		cue.end_time = form.cue_end.value;
 		cue.cue_notes = form.light_detail.value;
 		cue.lights = lightList;
 
-		$.post("/node_add_cue", { cue: cue }).done((data) => {
-			if (data.message === "success") {
-				//navigate
-				console.log(data.cue._id);
-				//history.push('/edit_cue', { cue: cue, parent_id: "hello" });
-				setError("navigation is weird");
-			} else {
-				setError(data.message.message);
-			}
-		});
+		if (location.state !== undefined) {
+			$.post("/node_add_cue", { cue: cue }).done((data) => {
+				if (data.message === "success") {
+					//navigate
+					console.log(data.cue._id);
+					history.push('/edit_dance', { dance: dance, show: show, show_id: show_id });
+				} else {
+					setError(data.message.message);
+				}
+			});
+		}
 	};
 
 	// if this is a new cue, set values to empty
