@@ -5,7 +5,7 @@
 	--powder-blue: #a8dadcff;
 	--celadon-blue: #457b9dff;
 	--prussian-blue: #1d3557ff;
-	--cream: #F0EFEB;
+	--cream: #f0efeb;
 }
 
 .btn {
@@ -31,11 +31,8 @@ footer {
 	width: 100%;
 	height: 90px;
 	text-align: center;
-	position: absolute;
-	bottom: 0;
 	background-color: var(--cream);
 }
-*/
 
 h1 {
 	text-align: center;

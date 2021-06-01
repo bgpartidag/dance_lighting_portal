@@ -19,7 +19,6 @@ function Main() {
 	return (
 		<Router>
 			<Header />
-			<div className="container" style={{position: "relative"}}>
 			<div
 				style={{
 					height: "80%",
@@ -30,7 +29,9 @@ function Main() {
 			>
 				{/* Setting paths from one page to the next */}
 				<Switch>
-					<Route exact path='/'><Home/></Route>
+					<Route exact path="/">
+						<Home />
+					</Route>
 					<Route path="/edit_show">
 						<EditShow />
 					</Route>
@@ -65,7 +66,6 @@ function Main() {
 				</Switch>
 			</div>
 			<Footer />
-			</div>
 		</Router>
 	);
 }
