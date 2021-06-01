@@ -19,6 +19,7 @@ function Main() {
 	return (
 		<Router>
 			<Header />
+			<div className="container" style={{position: "relative"}}>
 			<div
 				style={{
 					height: "80%",
@@ -64,6 +65,7 @@ function Main() {
 				</Switch>
 			</div>
 			<Footer />
+			</div>
 		</Router>
 	);
 }
