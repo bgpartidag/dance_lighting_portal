@@ -28,6 +28,14 @@ function Show(props) {
 			dance_notes: "testComments",
 			status: "Complete",
 		},
+		{
+			parent_show: "show1_id",
+			dance_name: "dance2",
+			choreographer: "Nicholas",
+			length: 120,
+			dance_notes: "testComments",
+			status: "Complete",
+		}
 	];
 	return (
 		<section id="edit_que">
