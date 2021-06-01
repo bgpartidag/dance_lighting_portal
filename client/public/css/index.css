@@ -5,11 +5,16 @@
 	--powder-blue: #a8dadcff;
 	--celadon-blue: #457b9dff;
 	--prussian-blue: #1d3557ff;
+	--cream: #F0EFEB;
 }
 
 .btn {
 	background-color: var(--celadon-blue);
 	border-color: black;
+<<<<<<< HEAD
+=======
+	/* margin: 10px 20px; */
+>>>>>>> 75c4a08b1142496914918df912e1e8cb03a9d175
 }
 
 .light_visualizer {
@@ -19,18 +24,19 @@
 
 nav {
 	padding: 10px;
-	background-color: var(--prussian-blue);
+	background-color: var(--cream);
 	color: var(--honeydew);
 	top: 0;
 	position: absolute;
 }
 
-/* footer {
+footer {
 	width: 100%;
-	height: 100px;
+	height: 90px;
 	text-align: center;
 	position: absolute;
 	bottom: 0;
+	background-color: var(--cream);
 }
 
 h1 {
